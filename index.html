@@ -421,49 +421,69 @@ body.touch-mode .act-btn.slash{background:radial-gradient(circle at 35% 30%,#cc6
 .buff-row.common{--rc:#89c5ff}.buff-row.rare{--rc:#c4a2ff}.buff-row.legendary{--rc:#f3d391}
 .buff-row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block!important}
 
-/* ===== Chip-style buff cards (SD-card shape: notched corner + gold contacts) ===== */
+/* ===== Chip cards v2: SVG-built silhouette, white panel, rarity-colored side bands, gold connectors ===== */
 #rewardSheet #rewardCards .reward-card{
- --cut:22px;--pw:12px;--pg:9px;--ph:15px;--acc:#b3283a;--band:#cfd3d8;--b0:#fbf9f5;--b1:#e6e1d8;
- position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
- gap:clamp(8px,1.6vh,14px)!important;padding:clamp(38px,6vh,54px) clamp(14px,1.8vw,24px) clamp(34px,5vh,46px)!important;
- border:0!important;border-radius:8px!important;
- background:linear-gradient(160deg,var(--b0),var(--b1))!important;color:#2a1e23!important;
- clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,0 100%);
- box-shadow:none!important;backdrop-filter:none!important;outline:none!important;
- transition:transform .16s,filter .16s}
-#rewardSheet #rewardCards .reward-card.common{--acc:#b3283a;--band:#cfd3d8;--b0:#fcfbf8;--b1:#e5e2db}
-#rewardSheet #rewardCards .reward-card.rare{--acc:#b3283a;--band:#c8323f;--b0:#fdf4f2;--b1:#ecd2cf}
-#rewardSheet #rewardCards .reward-card.legendary{--acc:#a8741a;--band:#d9a83c;--b0:#fff9e6;--b1:#ecd9a0}
-/* label panel */
-#rewardSheet #rewardCards .reward-card::before{content:'';position:absolute;inset:8px 8px calc(var(--ph) + 9px) 8px;z-index:-1;border:0;border-radius:0;pointer-events:none;
- background:linear-gradient(var(--band),var(--band)) top left/100% 4px no-repeat,linear-gradient(180deg,#ffffffc0,#ffffff66);
- clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)}
-/* three gold contacts, bottom right */
-#rewardSheet #rewardCards .reward-card::after{content:'';position:absolute;left:auto;right:calc(var(--cut) - 2px);bottom:0;top:auto;
- width:calc(var(--pw)*3 + var(--pg)*2);height:var(--ph);opacity:1;box-shadow:none;border-radius:2px 2px 0 0;
- background:linear-gradient(180deg,#fbe9a8,#d8a93d 55%,#b98720);
- -webkit-mask:repeating-linear-gradient(90deg,#000 0 var(--pw),transparent var(--pw) calc(var(--pw) + var(--pg)));
- mask:repeating-linear-gradient(90deg,#000 0 var(--pw),transparent var(--pw) calc(var(--pw) + var(--pg)))}
+ --c:#3b8fe6;--c-hi:#8cc6ff;--c-ink:#1f6bbf;
+ container-type:inline-size;position:relative;isolation:isolate;
+ display:flex!important;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+ aspect-ratio:323/527;width:100%;height:auto;min-height:0;
+ padding:17% 8% 30% 17%!important;gap:0!important;
+ border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;filter:none!important;outline:none!important;
+ color:#2a2d33!important;transition:transform .16s}
+#rewardSheet #rewardCards .reward-card.rare{--c:#9a62f0;--c-hi:#c9a4ff;--c-ink:#7a45d2}
+#rewardSheet #rewardCards .reward-card.legendary{--c:#eba21b;--c-hi:#ffd36b;--c-ink:#a56d08}
+#rewardSheet #rewardCards .reward-card::before,#rewardSheet #rewardCards .reward-card::after{content:none!important;display:none!important}
+#rewardSheet #rewardCards .chip-art,#rewardSheet #rewardCards .chip-glow{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+#rewardSheet #rewardCards .chip-art{z-index:-1;overflow:visible;filter:drop-shadow(0 1.4cqw 2.2cqw rgba(0,0,0,.45))}
+#rewardSheet #rewardCards .chip-glow{z-index:-2;color:var(--c);filter:blur(2.6cqw);opacity:.6;transition:opacity .16s}
+.chip-band{fill:var(--c)}.chip-neon{fill:none;stroke:var(--c-hi);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.chip-tri{fill:var(--c)}
+.chip-rim{fill:none;stroke:#fff;stroke-opacity:.55;stroke-width:1.2;stroke-linejoin:round}
 /* text */
-#rewardSheet #rewardCards .build-card-tag{position:absolute;top:clamp(16px,2.4vh,22px);left:clamp(16px,1.8vw,22px);right:auto;text-align:left;
- color:var(--acc)!important;font-weight:600;font-size:clamp(8px,.85vw,10px)!important;letter-spacing:.16em!important;text-transform:uppercase}
-#rewardSheet #rewardCards .reward-card strong{color:#2a1e23!important;font-weight:500!important;font-size:clamp(15px,1.7vw,22px)!important;line-height:1.25!important;letter-spacing:.03em!important;max-width:100%!important;overflow-wrap:break-word}
-#rewardSheet #rewardCards .reward-card strong::after{content:'';display:block;width:30px;height:2px;margin:clamp(8px,1.5vh,14px) auto 0;background:var(--acc);opacity:1}
-#rewardSheet #rewardCards .build-card-effect{color:#6a555c!important;font-weight:400;font-size:clamp(10px,1.05vw,13px)!important;line-height:1.55!important;max-width:100%!important}
-#rewardSheet #rewardCards .build-card-rank{position:absolute;left:clamp(16px,1.8vw,22px);right:auto;bottom:calc(var(--ph) + 16px);text-align:left;color:var(--acc)!important;font-weight:600;font-size:8px;letter-spacing:.12em}
-/* states */
-#rewardSheet #rewardCards .reward-card:hover,#rewardSheet #rewardCards .reward-card:focus-visible,#rewardSheet #rewardCards .reward-card.menu-selected{transform:translateY(-4px)!important;outline:none!important;box-shadow:inset 0 0 0 2px var(--band)!important;filter:brightness(1.03)}
-#rewardSheet #rewardCards .reward-card[aria-pressed=true]{transform:translateY(-7px)!important;outline:none!important;background:linear-gradient(160deg,var(--b0),var(--b1))!important;box-shadow:inset 0 0 0 3px var(--acc)!important;filter:brightness(1.05)}
-#rewardSheet #rewardCards .reward-card[aria-pressed=true]::after{background:linear-gradient(180deg,#fff3c0,#f0c24d 55%,#d39a2a)}
-#rewardSheet #rewardCards .reward-card:disabled{filter:saturate(.8)}
-@media(max-width:600px),(max-height:520px) and (orientation:landscape){
- #rewardSheet #rewardCards .reward-card{--cut:14px;--pw:9px;--pg:6px;--ph:11px;padding:30px 8px 28px!important;gap:6px!important}
- #rewardSheet #rewardCards .reward-card::before{clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,0 100%)}
- #rewardSheet #rewardCards .reward-card strong{font-size:12px!important}
- #rewardSheet #rewardCards .build-card-effect{font-size:9px!important}
- #rewardSheet #rewardCards .build-card-tag{font-size:7px!important;top:12px;left:12px}
- #rewardSheet #rewardCards .build-card-rank{left:12px;font-size:7px}
+#rewardSheet #rewardCards .build-card-tag{position:absolute;top:14.5cqw;left:0;right:0;text-align:center;display:block;
+ color:var(--c-ink)!important;font-weight:500;font-size:max(3.8cqw,7px)!important;letter-spacing:.2em!important;text-transform:uppercase;line-height:1}
+#rewardSheet #rewardCards .build-card-tag::before{content:none!important;display:none!important}
+#rewardSheet #rewardCards .reward-card strong{display:block;width:100%;color:#23262b!important;font-family:'Bahnschrift','Segoe UI',Arial,sans-serif;font-weight:500!important;
+ font-size:max(10.4cqw,14px)!important;line-height:1.2!important;letter-spacing:.12em!important;text-transform:uppercase;max-width:100%!important;overflow-wrap:anywhere}
+#rewardSheet #rewardCards .reward-card strong::after{content:'';display:block;height:2cqw;width:80%;margin:5cqw auto 5cqw;opacity:1;
+ background:linear-gradient(var(--c),var(--c)) center/26cqw .9cqw no-repeat,linear-gradient(#2a2d3345,#2a2d3345) center/100% .3cqw no-repeat}
+#rewardSheet #rewardCards .build-card-effect{display:block;color:#4b4f57!important;font-weight:400;font-size:max(5.8cqw,9.5px)!important;line-height:1.45!important;max-width:100%!important;letter-spacing:0;text-transform:none;text-wrap:balance}
+#rewardSheet #rewardCards .build-card-effect .num{color:var(--c-ink);font-weight:600}
+#rewardSheet #rewardCards .build-card-rank{position:absolute;left:24cqw;width:32cqw;right:auto;top:139cqw;bottom:auto;text-align:center;color:var(--c-ink)!important;font-weight:500;font-size:max(3.5cqw,6.5px);letter-spacing:.14em}
+/* states: hover only lifts (no glow); selected gets a brighter rarity edge */
+#rewardSheet.hover-ready #rewardCards .reward-card:hover,#rewardSheet #rewardCards .reward-card.menu-selected{transform:translateY(-4px)!important;box-shadow:none!important;outline:none!important;filter:none!important}
+#rewardSheet #rewardCards .reward-card:focus-visible{outline:2px solid #e2efff!important;outline-offset:5px;filter:none!important}
+#rewardSheet #rewardCards .reward-card[aria-pressed=true]{transform:translateY(-8px)!important;box-shadow:none!important;outline:none!important;background:transparent!important;filter:none!important}
+#rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-glow{opacity:1;filter:blur(3.4cqw)}
+#rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-rim{stroke:var(--c-hi);stroke-opacity:1;stroke-width:3}
+#rewardSheet #rewardCards .reward-card:disabled{filter:none}
+@media(prefers-reduced-motion:reduce){#rewardSheet #rewardCards .reward-card,#rewardSheet #rewardCards .reward-card[aria-pressed=true]{transition:none;transform:none!important}}
+
+/* ===== Reward screen: no panel, just title + cards + pick + confirm ===== */
+#rewardSheet{background:#090e16;backdrop-filter:none;padding:12px;box-sizing:border-box}
+#rewardSheet .reward-inner{width:min(1000px,100%);margin:auto;padding:0!important;box-sizing:border-box;background:none!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;display:flex;flex-direction:column;align-items:center}
+#rewardSheet .reward-header{text-align:center;margin:0 0 18px;width:100%}
+#rewardSheet .reward-header h2{font-size:30px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin:0}
+#rewardSheet .reward-header>:not(h2),#rewardSheet .rarity-key,#rewardSheet .reward-build-identity{display:none!important}
+#rewardSheet .reward-deck{display:flex;flex-direction:column;align-items:center;gap:18px;width:100%}
+#rewardSheet .reward-deck .reward-cards{--card-width:min(240px,calc((100vh - 230px)/1.63),calc((100vw - 24px)/3 - 14px));grid-template-columns:repeat(3,minmax(0,var(--card-width)));justify-content:center;gap:18px;max-width:none;width:100%}
+@supports(height:100dvh){#rewardSheet .reward-deck .reward-cards{--card-width:min(240px,calc((100dvh - 230px)/1.63),calc((100vw - 24px)/3 - 14px))}}
+#rewardSheet .reward-review{border:0!important;background:none!important;padding:0!important;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;max-width:520px}
+#rewardSheet .reward-review h3{font-size:18px;font-weight:550;color:#fff;margin:0}
+#rewardSheet .reward-review p{color:#c5d1e0;margin:0}
+#rewardSheet .reward-review .primary{min-height:44px;min-width:180px;margin-top:6px}
+@media(max-width:600px) and (orientation:portrait){
+ #rewardSheet{padding:10px}#rewardSheet .reward-header h2{font-size:22px}
+ #rewardSheet .reward-deck .reward-cards{--card-width:calc((100vw - 20px - 20px)/3);gap:10px}
 }
+@media(max-height:520px) and (orientation:landscape){
+ #rewardSheet{padding:8px}#rewardSheet .reward-header{margin-bottom:6px}#rewardSheet .reward-header h2{font-size:18px}
+ #rewardSheet .reward-deck{gap:8px}
+ #rewardSheet .reward-deck .reward-cards{--card-width:min(240px,calc((100vh - 150px)/1.63),calc((100vw - 24px)/3 - 12px));gap:12px}
+ #rewardSheet .reward-review{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 16px;text-align:left;align-items:center;max-width:none}#rewardSheet .reward-review .reward-summary{grid-column:1}#rewardSheet .reward-review .primary{grid-column:2;grid-row:1;margin:0}#rewardSheet .reward-review .reward-summary{grid-row:1}#rewardSheet .reward-review .eyebrow{display:none}#rewardSheet .reward-review h3{font-size:14px}#rewardSheet .reward-review p{font-size:10px}#rewardSheet .reward-review .primary{min-height:36px}
+}
+@supports(height:100dvh){@media(max-height:520px) and (orientation:landscape){#rewardSheet .reward-deck .reward-cards{--card-width:min(240px,calc((100dvh - 150px)/1.63),calc((100vw - 24px)/3 - 12px))}}}
+/* lighter title weight elsewhere (HUD buff list, build log) */
+.buff-row b,.build-entry b,.buff-panel header{font-weight:500}
 </style>
 </head>
 <body>
@@ -849,6 +869,14 @@ class Duel{
 }
 root.DuelRules={Duel,COMBO,ULT_COMBO,comboDuration,comboRelease,comboSample,PARRY,PARRY_REWARD,ATTACK,RELEASE,SPEED,ENEMY_COLORS,WEAPON_COLORS,REWARDS,TIER_WEIGHTS,BOSS_TIER_WEIGHTS,ARCHETYPES};if(typeof module!=='undefined')module.exports=root.DuelRules;
 })(typeof window!=='undefined'?window:globalThis);
+</script>
+<script>(function () {
+  const text = {"mirrorWard":{"name":"Mirror Ward","detail":"Parry restores shield","description":"Parry: restore 1 shield. 4s cooldown."},"scarTissue":{"name":"Scar Tissue","detail":"Bleed kills store a block","description":"Kill a bleeding enemy to store an automatic block. Up to 2 stored."},"searingCrit":{"name":"Searing Crit","detail":"Critical hits burn","description":"Critical hits add 2 Burn stacks. Up to 3 active."},"quickCoil":{"name":"Quick Coil","detail":"Lightning every 3 hits","description":"Discharge every 3 hits for 35% damage per Coil rank, instead of 5 hits for 60%."},"bloodRelay":{"name":"Blood Relay","detail":"Life steal restores shield","description":"Life-steal healing restores 0.25 shield. Once per second."},"lucidEdge":{"name":"Lucid Edge","detail":"Perfect Strike primes a crit","description":"A Perfect Strike hit makes your next attack a guaranteed crit. Use within 4s; 8s cooldown."},"fateWeaver":{"name":"Fate Weaver","detail":"Low rolls cause Bleed","description":"Chaos low-roll hits apply 2 Bleed stacks."},"reserve":{"name":"Reserve Guard","detail":"Store an automatic block","description":"Absorb one incoming hit without using shield. Adds one charge."},"damage":{"name":"Honed Edge","detail":"Attack damage +15%","description":"Gain +15% base damage per rank. Also strengthens status effects."},"speed":{"name":"Tempo","detail":"Hits build attack speed","description":"Hits add 8% attack speed per rank, up to 3 stacks for 3s. HP damage clears them."},"reduction":{"name":"Iron Guard","detail":"HP damage taken −20%","description":"Take 20% less HP damage per rank. Ranks multiply; shield costs stay the same."},"health":{"name":"Vital Core","detail":"Max health +35","description":"Gain 35 maximum HP and heal 35."},"movement":{"name":"Ghost Step","detail":"Movement speed +10%","description":"Move 10% faster per rank."},"bleed":{"name":"Serrated Edge","detail":"Hits apply Bleed","description":"Hits add Bleed: 8% base damage per second per rank for 4s. Up to 5 stacks."},"embers":{"name":"Cinder Edge","detail":"Hits apply Burn","description":"Hits add Burn: 10% base damage per second per rank for 3s. Up to 3 stacks."},"static":{"name":"Static Coil","detail":"5 hits → lightning","description":"Every 5 landed hits deal 60% extra base damage per rank."},"riposte":{"name":"Riposte","detail":"Parry → stronger next cut","description":"Parry to give your next attack +35% damage. Use within 4s."},"riskedge":{"name":"Redline","detail":"Low health: damage +25%","description":"Deal 25% more damage below 40% HP."},"critRate":{"name":"Deadeye","detail":"Critical chance +10%","description":"Gain 10 percentage points of critical chance per rank."},"critDamage":{"name":"Killing Edge","detail":"Critical damage +20%","description":"Gain 20 percentage points of critical damage per rank."},"regen":{"name":"Second Wind","detail":"Safe window: heal 2 HP/s","description":"After 4s without HP damage, heal 2 HP/s per rank during combat."},"oni":{"name":"Blood Pact","detail":"Life steal +2%","description":"Oni hits steal 2% of damage as HP per rank. Works at any health."},"divine":{"name":"Grace Note","detail":"Parry heals 4 HP","description":"Divine parries restore 4 HP per rank."},"chaos":{"name":"Weighted Dice","detail":"High-roll chance +6%","description":"Add 6 percentage points to Chaos high-roll chance per rank. Total chance caps at 75%."},"exposed":{"name":"Open Wound","detail":"Bleeding enemies: damage +20%","description":"Slash hits deal 20% more damage to bleeding enemies."},"harvest":{"name":"Crimson Harvest","detail":"Bleed kills heal","description":"Kill a bleeding enemy to heal 8% of maximum HP."},"critBleed":{"name":"Bloodletting","detail":"Critical hits cause Bleed","description":"Critical hits add 2 Bleed stacks. Up to 5 active."},"vampire":{"name":"Sanguine Edge","detail":"Life steal +2%","description":"Hits steal 2% of actual damage as HP per rank. Total life steal caps at 12%."},"bloodrush":{"name":"Blood Rhythm","detail":"Life steal → attack speed","description":"Life-steal healing grants 20% attack speed for 4s. Refreshes without stacking."},"execute":{"name":"Finisher","detail":"Low-health targets: damage +35%","description":"Deal 35% more slash damage to enemies below 25% HP."},"combustion":{"name":"Flashover","detail":"Crits detonate Burn","description":"Critical hits consume Burn for 45% base damage per stack. 1s cooldown."},"storm":{"name":"Storm Conductor","detail":"Parries charge lightning","description":"Parries add 2 Static charges. The next landed hit discharges a full coil."},"fortune":{"name":"Fortune Turns","detail":"Low rolls improve luck","description":"Each low roll adds +10 points of high-roll chance, up to +30. High rolls reset it; total cap 75%."},"trinity":{"name":"World Severance","detail":"Ultimate becomes three cuts","description":"One charge releases the katana combo: 1.5×, 1.5×, then 2× damage. Each cut splits reality. The 50s buff activates once."},"arcCrown":{"name":"Storm Crown","detail":"Every 6 hits call lightning","description":"Every 6 enemy hits call a lightning strike for 80% base damage. Further ranks strengthen it toward a 160% limit."},"reversal":{"name":"Reversal","detail":"Parry → an echo slash","description":"Parry to store an echo for 4s. Your next attack fires a second cut at 70% damage. Further ranks strengthen the echo toward 130%."},"deathmark":{"name":"Deathmark","detail":"Every 3 crits rupture the target","description":"Every third critical hit deals 100% extra base damage. Further ranks strengthen the rupture toward a 180% limit."},"voidbrand":{"name":"Voidbrand","detail":"Ultimate applies Bleed + Burn","description":"Each ultimate hit applies 2 Bleed and 2 Burn stacks. Uses your existing status damage and stack limits."},"revive":{"name":"Second Dawn","detail":"One extra life","description":"Return to full HP instead of dying. Adds one charge."},"weaponOni":{"name":"Oni Katana","detail":"Stronger at low health","description":"Gain up to 75% damage as HP falls. Below 35% HP, hits steal 5% life."},"weaponDivine":{"name":"Divine Katana","detail":"Parry → Perfect Strike","description":"3 parries ready a 2.5× strike that pierces guard. Momentum lasts 8s; HP damage breaks it."},"weaponChaos":{"name":"Chaos Katana","detail":"3× or 0.5× damage","description":"Each attack has a 40% chance of 3× damage; otherwise 0.5×."},"double":{"name":"Twin Cut","detail":"A second slash","description":"Each attack fires a second slash at 55% damage. Both cuts apply hit effects."},"autoGuard":{"name":"Aegis Circuit","detail":"Auto-block every 25s","description":"Absorb one hit for free. Recharges in 25s."},"perfectEcho":{"name":"Divine Echo","detail":"Perfect Strike returns Momentum","description":"A Perfect Strike hit restores 1 Momentum and 1 shield. Once per attack; 6s cooldown."},"rupture":{"name":"Hemorrhage","detail":"Crits rupture Bleed","description":"Critical hits consume 3+ Bleed stacks for 35% base damage each. 1s cooldown."},"jackpot":{"name":"Jackpot","detail":"High-roll crits echo","description":"A 3× critical hit deals 125% extra base damage. Once per attack; 1s cooldown."}};
+  for (const id in text) {
+    const r = DuelRules.REWARDS[id]; if (!r) continue;
+    for (const k of ['name', 'detail', 'description']) if (typeof text[id][k] === 'string' && text[id][k] !== '') r[k] = text[id][k];
+  }
+})();
 </script>
 <script>/* Local, content-only progression. No permanent combat stats or currency. */
 (function(root){'use strict';
@@ -1558,58 +1586,667 @@ function commitComboLaunch(a){
  pending.visual.angle=Math.atan2(tipScreen.y-gripScreen.y,(tipScreen.x-gripScreen.x)*camera.aspect);
  pending.visual.dir=pending.dir;a.comboLaunch=null;if(a.comboRealityShot){const shot=a.comboRealityShot;a.comboRealityShot=null;startRealityCut(shot);}
 }
-// Procedural, closed ornamental shells: no face, skin, eyeballs or head behind them.
+const MaskKit = (() => {
+  const PI = Math.PI, TAU = PI * 2;
+  const clamp01 = x => Math.max(0, Math.min(1, x));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const norm3 = (x, y, z) => { const l = Math.hypot(x, y, z) || 1; return [x / l, y / l, z / l]; };
+  const cross3 = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  const dot3 = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+
+  function newMesh() { return { slots: {} }; }
+  function slotOf(M, name) { return M.slots[name] || (M.slots[name] = { p: [], n: [], i: [] }); }
+
+  // ---- transform: scale -> rotate X -> rotate Y -> rotate Z -> translate -------------------------------
+  function xfMatrix(xf) {
+    const t = (xf && xf.t) || [0, 0, 0], r = (xf && xf.r) || [0, 0, 0], s = (xf && xf.s) || [1, 1, 1];
+    const cx = Math.cos(r[0]), sx = Math.sin(r[0]), cy = Math.cos(r[1]), sy = Math.sin(r[1]), cz = Math.cos(r[2]), sz = Math.sin(r[2]);
+    // R = Rz * Ry * Rx
+    const R = [
+      [cz * cy, cz * sy * sx - sz * cx, cz * sy * cx + sz * sx],
+      [sz * cy, sz * sy * sx + cz * cx, sz * sy * cx - cz * sx],
+      [-sy, cy * sx, cy * cx]];
+    return { R, t, s };
+  }
+  const applyP = (m, x, y, z) => {
+    x *= m.s[0]; y *= m.s[1]; z *= m.s[2];
+    return [m.R[0][0] * x + m.R[0][1] * y + m.R[0][2] * z + m.t[0], m.R[1][0] * x + m.R[1][1] * y + m.R[1][2] * z + m.t[1], m.R[2][0] * x + m.R[2][1] * y + m.R[2][2] * z + m.t[2]];
+  };
+  const applyN = (m, x, y, z) => {
+    x /= m.s[0]; y /= m.s[1]; z /= m.s[2];
+    return norm3(m.R[0][0] * x + m.R[0][1] * y + m.R[0][2] * z, m.R[1][0] * x + m.R[1][1] * y + m.R[1][2] * z, m.R[2][0] * x + m.R[2][1] * y + m.R[2][2] * z);
+  };
+
+  // Push local geometry (P,N flat arrays + index list I) into a slot. opts: {xf, mirror}
+  // mirror:true also adds a copy mirrored across x=0 (left/right pairs).
+  function emit(M, name, P, N, I, opts = {}) {
+    const S = slotOf(M, name), m = xfMatrix(opts.xf);
+    const copies = opts.mirror ? [1, -1] : [1];
+    for (const sgn of copies) {
+      const base = S.p.length / 3, n = P.length / 3;
+      for (let k = 0; k < n; k++) {
+        const p = applyP(m, P[k * 3], P[k * 3 + 1], P[k * 3 + 2]), q = applyN(m, N[k * 3], N[k * 3 + 1], N[k * 3 + 2]);
+        S.p.push(p[0] * sgn, p[1], p[2]); S.n.push(q[0] * sgn, q[1], q[2]);
+      }
+      for (let t = 0; t < I.length; t += 3) {
+        let a = I[t], b = I[t + 1], c = I[t + 2];
+        // make the winding agree with the supplied normals (after transform / mirror)
+        const ia = (base + a) * 3, ib = (base + b) * 3, ic = (base + c) * 3;
+        const ux = S.p[ib] - S.p[ia], uy = S.p[ib + 1] - S.p[ia + 1], uz = S.p[ib + 2] - S.p[ia + 2];
+        const vx = S.p[ic] - S.p[ia], vy = S.p[ic + 1] - S.p[ia + 1], vz = S.p[ic + 2] - S.p[ia + 2];
+        const fx = uy * vz - uz * vy, fy = uz * vx - ux * vz, fz = ux * vy - uy * vx;
+        const nx = S.n[ia] + S.n[ib] + S.n[ic], ny = S.n[ia + 1] + S.n[ib + 1] + S.n[ic + 1], nz = S.n[ia + 2] + S.n[ib + 2] + S.n[ic + 2];
+        if (fx * fx + fy * fy + fz * fz < 1e-18) continue; // degenerate
+        if (fx * nx + fy * ny + fz * nz < 0) { const tmp = b; b = c; c = tmp; }
+        S.i.push(base + a, base + b, base + c);
+      }
+    }
+  }
+
+  // ---- curves -------------------------------------------------------------------------------------------
+  // Catmull-Rom through points (any dimension). closed:true loops.
+  function curve(pts, steps, closed = false) {
+    const n = pts.length, d = pts[0].length, out = [];
+    const get = i => closed ? pts[((i % n) + n) % n] : pts[Math.max(0, Math.min(n - 1, i))];
+    const segs = closed ? n : n - 1;
+    const total = steps;
+    for (let s = 0; s <= total - (closed ? 1 : 0); s++) {
+      const f = (s / (closed ? total : total)) * segs, i = Math.min(segs - 1, Math.floor(f)), t = f - i;
+      const p0 = get(i - 1), p1 = get(i), p2 = get(i + 1), p3 = get(i + 2), q = [];
+      for (let k = 0; k < d; k++) {
+        q.push(0.5 * ((2 * p1[k]) + (-p0[k] + p2[k]) * t + (2 * p0[k] - 5 * p1[k] + 4 * p2[k] - p3[k]) * t * t + (-p0[k] + 3 * p1[k] - 3 * p2[k] + p3[k]) * t * t * t));
+      }
+      out.push(q);
+    }
+    return out;
+  }
+  // Smooth closed 2D outline through control points: spline(pts, 6)
+  const spline = (pts, seg = 6) => curve(pts, pts.length * seg, true);
+  const mirrorPoly = pts => pts.map(([x, y]) => [-x, y]).reverse();
+  const ellipsePoly = (cx, cy, rx, ry, n = 24, rot = 0) => {
+    const o = [], c = Math.cos(rot), s = Math.sin(rot);
+    for (let i = 0; i < n; i++) { const a = i / n * TAU, x = Math.cos(a) * rx, y = Math.sin(a) * ry; o.push([cx + x * c - y * s, cy + x * s + y * c]); }
+    return o;
+  };
+  // crescent moon outline: outer circle R, inner circle r2 shifted by d; opens toward `open` radians (0 = right, PI/2 = up)
+  function crescent(cx, cy, R, r2, d, open = PI / 2, n = 18) {
+    const x = (d * d + R * R - r2 * r2) / (2 * d), y = Math.sqrt(Math.max(0, R * R - x * x));
+    const t0 = Math.atan2(y, x), p0 = Math.atan2(y, x - d), pts = [];
+    for (let i = 0; i <= n; i++) { const a = t0 + (TAU - 2 * t0) * i / n; pts.push([Math.cos(a) * R, Math.sin(a) * R]); }
+    for (let i = 0; i <= n; i++) { const a = (TAU - p0) - (TAU - 2 * p0) * i / n; pts.push([d + Math.cos(a) * r2, Math.sin(a) * r2]); }
+    const c = Math.cos(open), s = Math.sin(open);
+    return pts.map(([px, py]) => [cx + px * c - py * s, cy + px * s + py * c]);
+  }
+  // 1D table interpolation: table([[y0,v0],[y1,v1],...]) -> f(y), smooth (Catmull-Rom), clamped at the ends
+  function table(knots) {
+    return y => {
+      const n = knots.length;
+      if (y <= knots[0][0]) return knots[0][1];
+      if (y >= knots[n - 1][0]) return knots[n - 1][1];
+      let i = 0; while (i < n - 2 && y > knots[i + 1][0]) i++;
+      const [x1, v1] = knots[i], [x2, v2] = knots[i + 1], t = (y - x1) / (x2 - x1);
+      const v0 = i > 0 ? knots[i - 1][1] : v1, v3 = i < n - 2 ? knots[i + 2][1] : v2;
+      const m1 = (v2 - v0) / 2 * 1, m2 = (v3 - v1) / 2 * 1; // Catmull-Rom tangents (knots roughly even)
+      const t2 = t * t, t3 = t2 * t;
+      return (2 * t3 - 3 * t2 + 1) * v1 + (t3 - 2 * t2 + t) * m1 + (-2 * t3 + 3 * t2) * v2 + (t3 - t2) * m2;
+    };
+  }
+  // gaussian bump: bump(x,y, cx,cy, sx,sy, height)
+  const bump = (x, y, cx, cy, sx, sy, h) => h * Math.exp(-(((x - cx) / sx) ** 2 + ((y - cy) / sy) ** 2) * 0.5);
+
+  // ---- shell: the sculpted face plate ---------------------------------------------------------------------------
+  // opts: { y0,y1 (bottom/top), halfW(y), z0(y), depth(y), n(y) (section squareness: 2=elliptic, 3+=boxy), bumps(x,y)->dz,
+  //         thick (back offset), cols, rows }
+  function shell(M, slot, o) {
+    const cols = o.cols || 30, rows = o.rows || 44, thick = o.thick || 0.05;
+    const halfW = o.halfW, z0 = o.z0 || (() => 0), depth = o.depth, nF = o.n || (() => 2), bumps = o.bumps || (() => 0);
+    const zAt = (x, y) => {
+      const w = Math.max(1e-4, halfW(y)); let s = Math.abs(x) / w; s = Math.min(1, s);
+      const n = nF(y);
+      const prof = Math.pow(Math.max(0, 1 - Math.pow(s, n)), 1 / 2); // 1/2 keeps a soft round section; n makes it boxier
+      const fade = Math.pow(Math.max(0, 1 - s * s), 0.5);
+      return z0(y) + depth(y) * prof + bumps(x, y) * fade;
+    };
+    const nAt = (x, y) => {
+      const e = 0.004, dx = (zAt(x + e, y) - zAt(x - e, y)) / (2 * e), dy = (zAt(x, y + e) - zAt(x, y - e)) / (2 * e);
+      return norm3(-dx, -dy, 1);
+    };
+    const P = [], N = [], I = [];
+    const idxF = (r, c) => r * (cols + 1) + c;
+    // front
+    for (let r = 0; r <= rows; r++) {
+      const y = lerp(o.y0, o.y1, r / rows), w = Math.max(1e-3, halfW(y));
+      for (let c = 0; c <= cols; c++) {
+        const phi = lerp(-PI / 2, PI / 2, c / cols), x = Math.sin(phi) * w;
+        let z = zAt(x, y), nn = nAt(x, y);
+        // at the rim the analytic normal blows up, so blend it outward
+        if (c === 0 || c === cols) nn = norm3((c === 0 ? -1 : 1) * 0.9, 0, 0.25);
+        P.push(x, y, z); N.push(nn[0], nn[1], nn[2]);
+      }
+    }
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const a = idxF(r, c), b = idxF(r, c + 1), d = idxF(r + 1, c), e = idxF(r + 1, c + 1);
+      I.push(a, d, b, b, d, e);
+    }
+    // back plate (a fan from the middle: it is never seen from the front) + rim
+    const bBase = P.length / 3;
+    const ring = [];
+    for (let r = 0; r <= rows; r++) ring.push([r, 0]);
+    for (let c = 1; c <= cols; c++) ring.push([rows, c]);
+    for (let r = rows - 1; r >= 0; r--) ring.push([r, cols]);
+    for (let c = cols - 1; c > 0; c--) ring.push([0, c]);
+    const backIdx = new Map();
+    ring.forEach(([r, c], k) => { const y = lerp(o.y0, o.y1, r / rows), w = Math.max(1e-3, halfW(y)), x = Math.sin(lerp(-PI / 2, PI / 2, c / cols)) * w; P.push(x, y, z0(y) - thick); N.push(0, 0, -1); backIdx.set(r * (cols + 1) + c, bBase + k); });
+    const ycen = (o.y0 + o.y1) / 2, cenIdx = P.length / 3; P.push(0, ycen, z0(ycen) - thick); N.push(0, 0, -1);
+    for (let k = 0; k < ring.length; k++) I.push(bBase + k, bBase + (k + 1) % ring.length, cenIdx);
+    const bk = (r, c) => backIdx.get(r * (cols + 1) + c) - bBase;
+    const rimBase = P.length / 3; let rimCount = 0;
+    const addRim = (fa, ba, fb, bb, nx, ny) => { // two front vertices, two back vertices
+      for (const k of [fa, fb]) { P.push(P[k * 3], P[k * 3 + 1], P[k * 3 + 2]); N.push(nx, ny, 0); }
+      for (const k of [ba, bb]) { P.push(P[k * 3], P[k * 3 + 1], P[k * 3 + 2]); N.push(nx, ny, 0); }
+      const q = rimBase + rimCount * 4; rimCount++;
+      I.push(q, q + 2, q + 1, q + 1, q + 2, q + 3);
+    };
+    for (let r = 0; r < rows; r++) { // left and right edges
+      addRim(idxF(r, 0), bBase + bk(r, 0), idxF(r + 1, 0), bBase + bk(r + 1, 0), -1, 0);
+      addRim(idxF(r, cols), bBase + bk(r, cols), idxF(r + 1, cols), bBase + bk(r + 1, cols), 1, 0);
+    }
+    for (let c = 0; c < cols; c++) { // bottom and top edges
+      addRim(idxF(0, c), bBase + bk(0, c), idxF(0, c + 1), bBase + bk(0, c + 1), 0, -1);
+      addRim(idxF(rows, c), bBase + bk(rows, c), idxF(rows, c + 1), bBase + bk(rows, c + 1), 0, 1);
+    }
+    emit(M, slot, P, N, I, o);
+    return { zAt, nAt, halfW };
+  }
+
+  // ---- decal: flat painted polygon that follows the face ------------------------------------------------
+  function triangulate(poly) {
+    const n0 = poly.length; let idx = poly.map((_, i) => i);
+    let area = 0; for (let i = 0; i < n0; i++) { const a = poly[i], b = poly[(i + 1) % n0]; area += a[0] * b[1] - b[0] * a[1]; }
+    if (area < 0) idx.reverse();
+    const cr = (a, b, c) => (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]);
+    const inTri = (p, a, b, c) => { const d1 = cr(a, b, p), d2 = cr(b, c, p), d3 = cr(c, a, p); return d1 > 1e-12 && d2 > 1e-12 && d3 > 1e-12; };
+    const tris = []; let guard = 0;
+    while (idx.length > 3 && guard++ < 20000) {
+      let found = false;
+      for (let k = 0; k < idx.length; k++) {
+        const a = idx[(k + idx.length - 1) % idx.length], b = idx[k], c = idx[(k + 1) % idx.length];
+        if (cr(poly[a], poly[b], poly[c]) <= 1e-12) continue;
+        let bad = false;
+        for (const j of idx) if (j !== a && j !== b && j !== c && inTri(poly[j], poly[a], poly[b], poly[c])) { bad = true; break; }
+        if (bad) continue;
+        tris.push([a, b, c]); idx.splice(k, 1); found = true; break;
+      }
+      if (!found) { idx.splice(0, 1); } // degenerate polygon: drop a vertex and carry on
+    }
+    if (idx.length === 3) tris.push([idx[0], idx[1], idx[2]]);
+    return tris;
+  }
+  // opts: {lift (height above the surface), maxEdge (tessellation), layer}
+  function decal(M, slot, poly, surf, o = {}) {
+    const lift = o.lift === undefined ? 0.005 : o.lift, maxEdge = o.maxEdge || 0.035;
+    let V = poly.map(p => [p[0], p[1]]), T = triangulate(V);
+    // Refine: split every edge longer than maxEdge (same decision for both triangles sharing it, so no cracks).
+    for (let pass = 0; pass < 8; pass++) {
+      const mid = new Map(), len = (a, b) => Math.hypot(V[a][0] - V[b][0], V[a][1] - V[b][1]);
+      const key = (a, b) => a < b ? a + '_' + b : b + '_' + a;
+      let any = false;
+      for (const t of T) for (let k = 0; k < 3; k++) { const a = t[k], b = t[(k + 1) % 3]; if (len(a, b) > maxEdge && !mid.has(key(a, b))) { V.push([(V[a][0] + V[b][0]) / 2, (V[a][1] + V[b][1]) / 2]); mid.set(key(a, b), V.length - 1); any = true; } }
+      if (!any) break;
+      const nt = [];
+      for (const t of T) {
+        const m = [0, 1, 2].map(k => mid.get(key(t[k], t[(k + 1) % 3]))); // midpoint on edge k (t[k] -> t[k+1]) or undefined
+        const cnt = m.filter(v => v !== undefined).length;
+        if (cnt === 0) { nt.push(t); continue; }
+        if (cnt === 3) { nt.push([t[0], m[0], m[2]], [m[0], t[1], m[1]], [m[2], m[1], t[2]], [m[0], m[1], m[2]]); continue; }
+        if (cnt === 1) {
+          const k = m.findIndex(v => v !== undefined), u = t[k], v = t[(k + 1) % 3], w = t[(k + 2) % 3];
+          nt.push([u, m[k], w], [m[k], v, w]); continue;
+        }
+        // two split edges: find the unsplit edge k0; the vertex opposite it is p
+        const k0 = m.findIndex(v => v === undefined), p = t[(k0 + 2) % 3], q = t[k0], r = t[(k0 + 1) % 3];
+        // edges: (r,p) is edge k0+1, (p,q) is edge k0+2
+        const mrp = m[(k0 + 1) % 3], mpq = m[(k0 + 2) % 3];
+        nt.push([p, mpq, mrp], [mpq, q, r], [mpq, r, mrp]);
+      }
+      T = nt;
+    }
+    const P = [], N = [], I = [];
+    for (const [x, y] of V) { const n = surf.nAt(x, y); P.push(x, y, surf.zAt(x, y) + lift); N.push(n[0], n[1], n[2]); }
+    for (const t of T) I.push(t[0], t[1], t[2]);
+    emit(M, slot, P, N, I, o);
+  }
+  // an open stroke (line with width) as a polygon, then decal. pts = centreline, w(t) = width
+  function stroke(M, slot, pts, width, surf, o = {}) {
+    const steps = o.steps || Math.max(8, pts.length * 5), c = pts.length > 2 ? curve(pts, steps) : pts.map(p => p.slice()), L = [], R = [];
+    for (let i = 0; i < c.length; i++) {
+      const a = c[Math.max(0, i - 1)], b = c[Math.min(c.length - 1, i + 1)];
+      let tx = b[0] - a[0], ty = b[1] - a[1]; const l = Math.hypot(tx, ty) || 1; tx /= l; ty /= l;
+      const t = i / (c.length - 1), w = (typeof width === 'function' ? width(t) : width) / 2;
+      L.push([c[i][0] - ty * w, c[i][1] + tx * w]); R.push([c[i][0] + ty * w, c[i][1] - tx * w]);
+    }
+    decal(M, slot, L.concat(R.reverse()), surf, o);
+  }
+
+  // ---- sweep: tube/blade along a curved spine -----------------------------------------------------------------
+  // spine: control points [x,y,z]; opts: {r:(t)=>radius or number, ratio:(t)=>ry/rx or number, seg, steps, up, capStart, capEnd,
+  //        closed, twist:(t)=>radians, xf, mirror}
+  function sweep(M, slot, spine, o = {}) {
+    const steps = o.steps || 22, seg = o.seg || 10, closed = !!o.closed;
+    const pts = curve(spine, steps, closed), n = pts.length;
+    const rf = typeof o.r === 'function' ? o.r : (() => (o.r === undefined ? 0.02 : o.r));
+    const qf = typeof o.ratio === 'function' ? o.ratio : (() => (o.ratio === undefined ? 1 : o.ratio));
+    const tw = o.twist || (() => 0);
+    const T = [];
+    for (let i = 0; i < n; i++) {
+      const a = pts[closed ? (i + n - 1) % n : Math.max(0, i - 1)], b = pts[closed ? (i + 1) % n : Math.min(n - 1, i + 1)];
+      T.push(norm3(b[0] - a[0], b[1] - a[1], b[2] - a[2]));
+    }
+    let up = o.up || [0, 0, 1]; if (Math.abs(dot3(up, T[0])) > 0.95) up = [0, 1, 0];
+    let N0 = norm3(...(() => { const d = dot3(up, T[0]); return [up[0] - T[0][0] * d, up[1] - T[0][1] * d, up[2] - T[0][2] * d]; })());
+    const frames = [];
+    for (let i = 0; i < n; i++) {
+      if (i > 0) { const d = dot3(N0, T[i]); N0 = norm3(N0[0] - T[i][0] * d, N0[1] - T[i][1] * d, N0[2] - T[i][2] * d); }
+      frames.push({ N: N0, B: cross3(T[i], N0) });
+    }
+    const P = [], Nn = [], I = [];
+    for (let i = 0; i < n; i++) {
+      const t = i / (n - 1), r = Math.max(0, rf(t)), q = Math.max(0.02, qf(t)), rx = Math.max(r, 1e-5), ry = Math.max(r * q, 1e-5), ang = tw(t);
+      const { N, B } = frames[i], ca = Math.cos(ang), sa = Math.sin(ang);
+      const N2 = [N[0] * ca + B[0] * sa, N[1] * ca + B[1] * sa, N[2] * ca + B[2] * sa], B2 = [B[0] * ca - N[0] * sa, B[1] * ca - N[1] * sa, B[2] * ca - N[2] * sa];
+      for (let j = 0; j < seg; j++) {
+        const th = j / seg * TAU, c = Math.cos(th), s = Math.sin(th);
+        P.push(pts[i][0] + (N2[0] * c * rx + B2[0] * s * ry), pts[i][1] + (N2[1] * c * rx + B2[1] * s * ry), pts[i][2] + (N2[2] * c * rx + B2[2] * s * ry));
+        const ex = c / Math.max(rx, 1e-3), ey = s / Math.max(ry, 1e-3);
+        const nn = norm3(N2[0] * ex + B2[0] * ey, N2[1] * ex + B2[1] * ey, N2[2] * ex + B2[2] * ey);
+        Nn.push(nn[0], nn[1], nn[2]);
+      }
+    }
+    const rings = closed ? n : n - 1;
+    for (let i = 0; i < rings; i++) for (let j = 0; j < seg; j++) {
+      const i2 = (i + 1) % n, a = i * seg + j, b = i * seg + (j + 1) % seg, c = i2 * seg + j, d = i2 * seg + (j + 1) % seg;
+      I.push(a, b, c, b, d, c);
+    }
+    const cap = (i, dir) => {
+      const base = P.length / 3, p = pts[i];
+      P.push(p[0], p[1], p[2]); Nn.push(T[i][0] * dir, T[i][1] * dir, T[i][2] * dir);
+      for (let j = 0; j < seg; j++) { P.push(P[(i * seg + j) * 3], P[(i * seg + j) * 3 + 1], P[(i * seg + j) * 3 + 2]); Nn.push(T[i][0] * dir, T[i][1] * dir, T[i][2] * dir); }
+      for (let j = 0; j < seg; j++) I.push(base, base + 1 + j, base + 1 + (j + 1) % seg);
+    };
+    if (!closed && o.capStart) cap(0, -1);
+    if (!closed && o.capEnd) cap(n - 1, 1);
+    emit(M, slot, P, Nn, I, o);
+  }
+
+  // ---- lathe: spin a profile [[radius,y],...] around the y axis (then use xf to place/rotate) -------------
+  function lathe(M, slot, profile, o = {}) {
+    const seg = o.seg || 16, P = [], N = [], I = [], m = profile.length;
+    const nrm = [];
+    for (let i = 0; i < m; i++) {
+      const a = profile[Math.max(0, i - 1)], b = profile[Math.min(m - 1, i + 1)];
+      const dr = b[0] - a[0], dy = b[1] - a[1]; const l = Math.hypot(dr, dy) || 1;
+      nrm.push([dy / l, -dr / l]); // outward-ish (radius, y)
+    }
+    for (let i = 0; i < m; i++) for (let j = 0; j <= seg; j++) {
+      const th = j / seg * TAU, c = Math.cos(th), s = Math.sin(th);
+      P.push(profile[i][0] * c, profile[i][1], profile[i][0] * s);
+      N.push(nrm[i][0] * c, nrm[i][1], nrm[i][0] * s);
+    }
+    for (let i = 0; i < m - 1; i++) for (let j = 0; j < seg; j++) {
+      const a = i * (seg + 1) + j, b = a + 1, c = a + seg + 1, d = c + 1;
+      I.push(a, c, b, b, c, d);
+    }
+    emit(M, slot, P, N, I, o);
+  }
+  // ellipsoid / dome: radius r, scaled by xf.s. 'from'/'to' = polar angle range (0 = +y pole). Default full sphere.
+  function sphere(M, slot, r, o = {}) {
+    const rings = o.rings || 10, from = o.from === undefined ? 0 : o.from, to = o.to === undefined ? PI : o.to, prof = [];
+    for (let i = 0; i <= rings; i++) { const a = lerp(to, from, i / rings); prof.push([Math.max(1e-5, Math.sin(a) * r), Math.cos(a) * r]); } // bottom -> top so normals point outward
+    lathe(M, slot, prof, o);
+  }
+  // torus / ring in the xy plane facing +z (use xf to move/tilt). R = ring radius, r = tube radius, arc = fraction of full circle
+  function torus(M, slot, R, r, o = {}) {
+    const n = 14, arc = o.arc || 1, pts = [];
+    for (let i = 0; i < n; i++) { const a = (i / (arc < 1 ? n - 1 : n)) * TAU * arc + (o.start || 0); pts.push([Math.cos(a) * R, Math.sin(a) * R, 0]); }
+    sweep(M, slot, pts, Object.assign({ r, seg: o.seg || 8, steps: o.steps || 30, closed: arc >= 1, capStart: arc < 1, capEnd: arc < 1 }, o));
+  }
+
+  // ---- results ------------------------------------------------------------------------------------------------------
+  function stats(M) { let v = 0, t = 0; const per = {}; for (const k in M.slots) { v += M.slots[k].p.length / 3; t += M.slots[k].i.length / 3; per[k] = M.slots[k].i.length / 3; } return { vertices: v, triangles: t, slots: Object.keys(M.slots).length, perSlot: per }; }
+
+  return { torus, newMesh, shell, decal, stroke, sweep, lathe, sphere, curve, spline, crescent, mirrorPoly, ellipsePoly, table, bump, stats, emit, lerp, clamp01, PI, TAU };
+})();
+const MaskDesigns = (() => {
+  const K = MaskKit, PI = Math.PI;
+
+  // ===================================================================================================================
+  // PALETTES   (0xRRGGBB).  Rules from the art direction:
+  //   fox      = orange, white or black body        angel    = always mainly white (gold or rose-gold trim)
+  //   oni      = black or red body, any accent      sentinel = blue or green style body, any accent
+  // ===================================================================================================================
+  const PALETTES = {
+    fox: [
+      { name: 'Snow',      body: 0xf3efe6, accent: 0xc9302c, dark: 0x17151a, trim: 0xd6b15e, alt: 0xf0a3a0 },
+      { name: 'Ember',     body: 0xe8782c, accent: 0xfff0da, dark: 0x241410, trim: 0xe3c168, alt: 0xffc9a0 },
+      { name: 'Night',     body: 0x1c1d24, accent: 0xe8432f, dark: 0x08080b, trim: 0xc9a24f, alt: 0x6e1c28 },
+      { name: 'Frost',     body: 0xeef2f4, accent: 0x2f7fd0, dark: 0x141a22, trim: 0xc8ced6, alt: 0xa9d2f5 },
+      { name: 'Tiger',     body: 0xd9611e, accent: 0x1a1618, dark: 0x120c0a, trim: 0xffd27a, alt: 0xf7c69b },
+      { name: 'Violet',    body: 0x20202a, accent: 0xa855ff, dark: 0x09090d, trim: 0xd9d2ff, alt: 0x4a2a78 },
+      { name: 'Jade',      body: 0xf1f0e8, accent: 0x1f9d77, dark: 0x13201c, trim: 0xd9b45a, alt: 0xb6e6d2 },
+    ],
+    oni: [
+      { name: 'Blood',     body: 0x9c2230, accent: 0x15111a, dark: 0x0b0709, trim: 0xd6b15e, alt: 0xf0e6cf },
+      { name: 'Obsidian',  body: 0x17141b, accent: 0xe03a3a, dark: 0x050406, trim: 0xb9a15e, alt: 0xe9dfc4 },
+      { name: 'Crimson',   body: 0xb8283a, accent: 0xf2c14e, dark: 0x120a0c, trim: 0x2a2024, alt: 0xffe9b0 },
+      { name: 'Ink',       body: 0x20202c, accent: 0x34d6c7, dark: 0x07070b, trim: 0xc7ced8, alt: 0xbdf2ee },
+      { name: 'Rust',      body: 0x7e2a1e, accent: 0xffa23a, dark: 0x120807, trim: 0x2b2118, alt: 0xf4d9a8 },
+      { name: 'Void',      body: 0x1a1224, accent: 0xb066ff, dark: 0x060409, trim: 0xd9c8ff, alt: 0xe6d6ff },
+      { name: 'Scarlet',   body: 0xc2362f, accent: 0x111114, dark: 0x0c0707, trim: 0xe3b95a, alt: 0xf5ead2 },
+    ],
+    sentinel: [
+      { name: 'Cobalt',    body: 0x3a6fb8, accent: 0xffa43a, dark: 0x10161f, trim: 0xb9c4d0, alt: 0x1f3a66 },
+      { name: 'Emerald',   body: 0x2f9a6a, accent: 0xf2ec5a, dark: 0x0e1a16, trim: 0xc5cfc9, alt: 0x1a5a3e },
+      { name: 'Teal',      body: 0x2a8f9c, accent: 0xff5a8a, dark: 0x0e1a1d, trim: 0xc2ced2, alt: 0x185a63 },
+      { name: 'Steel',     body: 0x5b7fa6, accent: 0x63f0ff, dark: 0x111820, trim: 0xd0d6dc, alt: 0x334a66 },
+      { name: 'Viridian',  body: 0x3d8a52, accent: 0xff6a3a, dark: 0x0f1912, trim: 0xbfc8c0, alt: 0x1f4d2e },
+      { name: 'Azure',     body: 0x3f8fe0, accent: 0xb066ff, dark: 0x0d1624, trim: 0xe0e6ee, alt: 0x1d4f8c },
+      { name: 'Mint',      body: 0x58b99a, accent: 0xff7a5a, dark: 0x10201b, trim: 0xd2dcd8, alt: 0x2d7a62 },
+    ],
+    angel: [
+      { name: 'Pearl+Gold',   body: 0xf6f3ec, accent: 0xd9b25a, dark: 0x6b5a4a, trim: 0xe0b85c, alt: 0xe4ddd0 },
+      { name: 'Pearl+Rose',   body: 0xf7f2ee, accent: 0xe3a08c, dark: 0x6a504c, trim: 0xe8a98f, alt: 0xefd9d2 },
+      { name: 'Ivory+Gold',   body: 0xf1ecde, accent: 0xc9a24a, dark: 0x5a4a3a, trim: 0xd7ae52, alt: 0xe2d8c2 },
+      { name: 'White+Sky',    body: 0xf4f6f8, accent: 0x9ccbe8, dark: 0x4a5660, trim: 0xe0be6a, alt: 0xdce6ee },
+      { name: 'White+Rose',   body: 0xf9f4f2, accent: 0xd98aa0, dark: 0x6a4a52, trim: 0xe6b196, alt: 0xf0dde0 },
+      { name: 'Moon+Gold',    body: 0xeceff2, accent: 0xcaa24e, dark: 0x4f5560, trim: 0xdcb45a, alt: 0xd7dde4 },
+    ],
+  };
+
+  // Material look per slot (roughness r, metalness m). glow = eyes etc (colour comes from the enemy's energy colour in game).
+  const LOOK = {
+    body:   { r: 0.30, m: 0.10 },
+    accent: { r: 0.38, m: 0.12 },
+    dark:   { r: 0.48, m: 0.30 },
+    trim:   { r: 0.24, m: 0.85 },
+    alt:    { r: 0.40, m: 0.10 },
+    glow:   { r: 0.30, m: 0.40 },
+  };
+  const ALT_LOOK = { oni: { r: 0.34, m: 0.35 }, sentinel: { r: 0.38, m: 0.55 } };
+
+  function palette(species, boss, idx) {
+    const list = PALETTES[species], p = list[((idx % list.length) + list.length) % list.length], mat = {};
+    for (const s of ['body', 'accent', 'dark', 'trim', 'alt']) {
+      const look = (s === 'alt' && ALT_LOOK[species]) || LOOK[s];
+      mat[s] = { c: p[s], r: look.r, m: look.m };
+    }
+    mat.glow = { c: 0xaf60ff, r: LOOK.glow.r, m: LOOK.glow.m };
+    return { name: p.name, mat, glowColor: 0xaf60ff };
+  }
+
+  // ---- small helpers shared by the species ----------------------------------------------------------------------
+  // Gold crown that follows the forehead: a band with spikes. xs = spike x positions (mirrored), hs = their heights.
+  function crown(M, surf, slot, o) {
+    const yb = x => o.y + o.arch * (1 - (x / o.half) ** 2);
+    const band = K.curve(Array.from({ length: 9 }, (_, i) => { const x = -o.half + (2 * o.half) * i / 8, y = yb(x); return [x, y, surf.zAt(x, y) + o.lift]; }), 24);
+    K.sweep(M, slot, band, { r: o.band, ratio: 0.8, up: [0, 0, 1], seg: 8, steps: 24, capStart: true, capEnd: true });
+    o.spikes.forEach(([x, h]) => {
+      const y = yb(x), z = surf.zAt(x, y) + o.lift;
+      K.sweep(M, slot, [[x, y, z], [x * 1.04, y + h * 0.5, z - 0.004], [x * 1.1, y + h, z - 0.012]], { r: t => o.spike * (1 - t) + 0.0015, ratio: 0.8, seg: 8, steps: 8, mirror: x > 0 });
+    });
+  }
+  const eyeSpline = (pts, seg = 4) => K.spline(pts, seg);
+  const both = (M, slot, poly, surf, o) => { K.decal(M, slot, poly, surf, o); K.decal(M, slot, K.mirrorPoly(poly), surf, o); };
+
+  // ===================================================================================================================
+  // FOX  (kitsune). Long tapering muzzle, two tall ears, painted eye surrounds + stripes.
+  //   boss: gold earrings, small fangs, gold moon on the forehead, gold crown.
+  // ===================================================================================================================
+  function foxMask(boss) {
+    const M = K.newMesh();
+    const halfW = K.table([[-0.42, 0.055], [-0.38, 0.075], [-0.28, 0.105], [-0.15, 0.165], [-0.02, 0.26], [0.10, 0.325], [0.22, 0.34], [0.31, 0.305], [0.37, 0.23], [0.395, 0.12]]);
+    const z0 = K.table([[-0.42, 0.20], [-0.30, 0.155], [-0.14, 0.08], [0.02, 0.02], [0.2, -0.005], [0.40, -0.04]]);
+    const depth = K.table([[-0.42, 0.045], [-0.30, 0.062], [-0.14, 0.088], [0.0, 0.115], [0.2, 0.125], [0.40, 0.07]]);
+    const surf = K.shell(M, 'body', {
+      y0: -0.42, y1: 0.395, halfW, z0, depth, thick: 0.05, cols: 26, rows: 44,
+      bumps: (x, y) => {
+        const ax = Math.abs(x);
+        return K.bump(ax, y, 0, -0.22, 0.04, 0.2, 0.012) + K.bump(ax, y, 0.20, -0.02, 0.075, 0.10, 0.018)
+          + K.bump(ax, y, 0.17, 0.095, 0.08, 0.035, -0.02) + K.bump(ax, y, 0.0, 0.30, 0.10, 0.06, 0.012);
+      },
+    });
+    // ears (two)
+    const earSpine = [[0.17, 0.27, -0.02], [0.22, 0.43, -0.035], [0.285, 0.62, -0.07], [0.31, 0.80, -0.11]];
+    K.sweep(M, 'body', earSpine, { r: t => 0.150 * Math.pow(1 - t, 0.72) + 0.004 * (1 - t), ratio: 0.30, up: [1, 0, 0], seg: 10, steps: 14, capStart: true, mirror: true });
+    const inner = earSpine.map(p => [p[0] - 0.005, p[1] + 0.02, p[2] + 0.028]);
+    K.sweep(M, 'alt', inner, { r: t => 0.100 * Math.pow(1 - t * 0.93, 0.78), ratio: 0.24, up: [1, 0, 0], seg: 10, steps: 14, mirror: true });
+    for (const dx of [-0.02, 0.025]) K.sweep(M, 'accent', [[0.19 + dx, 0.38, -0.002], [0.215 + dx, 0.52, -0.015], [0.235 + dx, 0.66, -0.035]], { r: t => 0.012 * (1 - t * 0.8), ratio: 0.5, up: [1, 0, 0], seg: 6, steps: 8, mirror: true });
+    // cheek fur: pointed petals streaming down the cheeks
+    [[[0.31, 0.03, 0.0], [0.37, -0.06, -0.02], [0.37, -0.20, -0.045]], [[0.285, -0.02, 0.005], [0.335, -0.10, -0.015], [0.315, -0.22, -0.04]]].forEach(sp => {
+      K.sweep(M, 'body', sp, { r: t => 0.052 * Math.pow(1 - t, 0.65) + 0.002, ratio: 0.22, up: [1, 0, 0], seg: 8, steps: 10, mirror: true });
+    });
+    // painted eyes
+    const eyeO = K.spline([[0.055, 0.015], [0.11, 0.075], [0.19, 0.125], [0.275, 0.175], [0.30, 0.20], [0.235, 0.115], [0.16, 0.04], [0.095, -0.005]], 4);
+    const eyeD = K.spline([[0.075, 0.03], [0.13, 0.08], [0.20, 0.122], [0.268, 0.158], [0.215, 0.105], [0.15, 0.048], [0.098, 0.012]], 4);
+    const eyeG = K.spline([[0.095, 0.036], [0.15, 0.078], [0.215, 0.114], [0.19, 0.092], [0.14, 0.054]], 4);
+    both(M, 'accent', eyeO, surf, { lift: 0.004, maxEdge: 0.045 }); both(M, 'dark', eyeD, surf, { lift: 0.007, maxEdge: 0.045 }); both(M, 'glow', eyeG, surf, { lift: 0.010, maxEdge: 0.045 });
+    for (const sgn of [1, -1]) {
+      const sp = pts => pts.map(([x, y]) => [x * sgn, y]);
+      K.stroke(M, 'accent', sp([[0.09, 0.0], [0.105, -0.09], [0.088, -0.19], [0.062, -0.27]]), t => 0.032 * (1 - t * 0.85) + 0.004, surf, { lift: 0.004, maxEdge: 0.06 });
+      K.stroke(M, 'accent', sp([[0.075, -0.30], [0.093, -0.325], [0.078, -0.355]]), t => 0.016 * (1 - t * 0.5), surf, { lift: 0.004, maxEdge: 0.06 });
+      K.stroke(M, 'accent', sp([[0.255, 0.07], [0.285, 0.01], [0.275, -0.07]]), t => 0.022 * (1 - t * 0.7) + 0.003, surf, { lift: 0.004, maxEdge: 0.06 });
+    }
+    // forehead flames
+    if (!boss) K.decal(M, 'accent', K.spline([[-0.052, 0.355], [-0.012, 0.19], [0.0, 0.15], [0.012, 0.19], [0.052, 0.355], [0.0, 0.31]], 4), surf, { lift: 0.004, maxEdge: 0.06 });
+    for (const poly of [[[0.075, 0.375], [0.11, 0.285], [0.135, 0.235], [0.14, 0.34], [0.115, 0.385]], [[0.15, 0.36], [0.19, 0.30], [0.225, 0.27], [0.215, 0.34], [0.18, 0.37]]]) both(M, 'accent', K.spline(poly, 3), surf, { lift: 0.004, maxEdge: 0.06 });
+    K.sphere(M, 'dark', 1, { xf: { t: [0, -0.405, 0.215], s: [0.056, 0.040, 0.046] }, rings: 7, seg: 12 });
+    if (boss) {
+      K.decal(M, 'trim', K.crescent(0, 0.20, 0.064, 0.054, 0.036, PI / 2 + PI), surf, { lift: 0.008, maxEdge: 0.03 });
+      crown(M, surf, 'trim', { y: 0.325, arch: 0.03, half: 0.27, lift: 0.012, band: 0.019, spike: 0.024, spikes: [[0, 0.15], [0.08, 0.11], [0.155, 0.085], [0.22, 0.06]] });
+      for (const [cx2, cy2, rr] of [[0.322, 0.50, 0.056], [0.30, 0.40, 0.040]]) K.torus(M, 'trim', rr, 0.0095, { xf: { t: [cx2, cy2, -0.075], r: [0, 0.35, 0] }, mirror: true, steps: 22 });
+      K.sweep(M, 'body', [[0.05, -0.375, 0.185], [0.058, -0.43, 0.205], [0.048, -0.49, 0.200]], { r: t => 0.026 * (1 - t) + 0.001, ratio: 0.9, seg: 8, steps: 8, mirror: true });
+    }
+    return M;
+  }
+
+  // ===================================================================================================================
+  // ONI  (demon). Heavy brow, glaring eyes, wide grin with tusks, two horns.
+  //   boss: much bigger curved horns with gold bands, a second pair of small horns, ribbed gold tusks, a gold crown.
+  // ===================================================================================================================
+  function oniMask(boss) {
+    const M = K.newMesh();
+    const halfW = K.table([[-0.42, 0.11], [-0.36, 0.17], [-0.25, 0.255], [-0.1, 0.33], [0.05, 0.35], [0.18, 0.345], [0.30, 0.315], [0.37, 0.235], [0.40, 0.11]]);
+    const z0 = K.table([[-0.42, 0.04], [-0.2, 0.0], [0.4, -0.02]]);
+    const depth = K.table([[-0.42, 0.07], [-0.30, 0.10], [-0.1, 0.14], [0.1, 0.155], [0.3, 0.125], [0.4, 0.07]]);
+    const surf = K.shell(M, 'body', {
+      y0: -0.42, y1: 0.40, halfW, z0, depth, thick: 0.06, cols: 28, rows: 44, n: () => 2.4,
+      bumps: (x, y) => {
+        const ax = Math.abs(x);
+        return K.bump(ax, y, 0.15, 0.185, 0.115, 0.034, 0.05) + K.bump(ax, y, 0.0, 0.21, 0.03, 0.05, -0.025)   // heavy brow, glabella
+          + K.bump(ax, y, 0.17, 0.095, 0.075, 0.04, -0.03)                                               // eye hollows
+          + K.bump(ax, y, 0.0, -0.03, 0.045, 0.13, 0.05) + K.bump(ax, y, 0.0, -0.13, 0.075, 0.045, 0.05)   // nose bridge + bulb
+          + K.bump(ax, y, 0.075, -0.14, 0.035, 0.03, 0.025)                                              // nostril wings
+          + K.bump(ax, y, 0.24, -0.06, 0.075, 0.075, 0.035) + K.bump(ax, y, 0.0, -0.365, 0.11, 0.05, 0.025); // cheekbones, chin
+      },
+    });
+    // eyes: sockets, glaring slit
+    const sock = K.spline([[0.045, 0.085], [0.11, 0.10], [0.20, 0.145], [0.285, 0.205], [0.255, 0.115], [0.18, 0.06], [0.10, 0.045]], 4);
+    const slit = K.spline([[0.075, 0.09], [0.15, 0.105], [0.235, 0.15], [0.19, 0.098], [0.12, 0.074]], 4);
+    both(M, 'dark', sock, surf, { lift: 0.006, maxEdge: 0.045 }); both(M, 'glow', slit, surf, { lift: 0.009, maxEdge: 0.045 });
+    // brow + war-paint
+    both(M, 'accent', K.spline([[0.02, 0.255], [0.13, 0.255], [0.23, 0.27], [0.255, 0.295], [0.18, 0.292], [0.08, 0.285]], 4), surf, { lift: 0.006, maxEdge: 0.05 });
+    K.decal(M, 'accent', K.spline([[-0.035, 0.37], [0, 0.20], [0.035, 0.37], [0, 0.33]], 4), surf, { lift: 0.006, maxEdge: 0.06 });
+    for (const sgn of [1, -1]) {
+      const sp = pts => pts.map(([x, y]) => [x * sgn, y]);
+      for (const dy of [0, -0.045, -0.09]) K.stroke(M, 'accent', sp([[0.22, -0.01 + dy], [0.30, 0.03 + dy], [0.325, 0.07 + dy]]), t => 0.02 * (1 - t * 0.7) + 0.003, surf, { lift: 0.006, maxEdge: 0.06 });
+    }
+    // nostrils
+    both(M, 'dark', K.spline([[0.03, -0.155], [0.075, -0.15], [0.09, -0.175], [0.05, -0.18]], 3), surf, { lift: 0.006, maxEdge: 0.04 });
+    // mouth: wide grin, teeth, tusks
+    const mouth = K.spline([[-0.28, -0.17], [-0.15, -0.235], [0, -0.255], [0.15, -0.235], [0.28, -0.17], [0.255, -0.215], [0.14, -0.315], [0, -0.335], [-0.14, -0.315], [-0.255, -0.215]], 4);
+    K.decal(M, 'dark', mouth, surf, { lift: 0.006, maxEdge: 0.05 });
+    const teethN = boss ? 7 : 5;
+    for (let i = 0; i < teethN; i++) { // upper teeth hanging
+      const t = (i + 0.5) / teethN, x = -0.23 + 0.46 * t, yTop = -0.205 - 0.05 * (1 - (2 * t - 1) ** 2) + 0.0;
+      K.decal(M, 'alt', [[x - 0.027, yTop + 0.012], [x + 0.027, yTop + 0.012], [x, yTop - (i === (teethN - 1) / 2 ? 0.07 : 0.055)]], surf, { lift: 0.008, maxEdge: 0.05 });
+    }
+    const tuskSpine = boss ? [[0.17, -0.31, 0.10], [0.20, -0.18, 0.15], [0.205, -0.02, 0.17], [0.17, 0.08, 0.15]] : [[0.16, -0.30, 0.09], [0.19, -0.22, 0.13], [0.195, -0.12, 0.14]];
+    const tr = boss ? 0.052 : 0.036;
+    K.sweep(M, boss ? 'trim' : 'alt', tuskSpine, { r: t => tr * Math.pow(1 - t, 0.8) * (boss ? 1 + 0.10 * Math.sin(t * 38) : 1) + 0.002, ratio: 0.9, seg: 9, steps: boss ? 20 : 12, mirror: true });
+    // horns
+    const hornSpine = boss ? [[0.20, 0.33, 0.05], [0.33, 0.48, 0.08], [0.44, 0.68, 0.08], [0.45, 0.88, 0.06], [0.37, 1.02, 0.04]] : [[0.19, 0.32, 0.05], [0.28, 0.44, 0.09], [0.29, 0.60, 0.12], [0.24, 0.74, 0.16]];
+    const hr = boss ? 0.092 : 0.07;
+    K.sweep(M, 'alt', hornSpine, { r: t => hr * Math.pow(1 - t, 0.85) * (1 + 0.07 * Math.sin(t * 32)) + 0.003, ratio: 0.95, seg: 10, steps: boss ? 26 : 16, capStart: true, mirror: true });
+    K.torus(M, 'trim', hr * 1.02, hr * 0.17, { xf: { t: [hornSpine[0][0] + 0.05, hornSpine[0][1] + 0.1, hornSpine[0][2]], r: [-1.2, 0.2, 0.55], s: [0.9, 0.9, 0.9] }, mirror: true, steps: 18 });
+    if (boss) {
+      K.sweep(M, 'alt', [[0.30, 0.20, -0.02], [0.45, 0.27, -0.04], [0.52, 0.43, -0.03]], { r: t => 0.055 * (1 - t) + 0.003, ratio: 0.95, seg: 8, steps: 12, capStart: true, mirror: true });
+      crown(M, surf, 'trim', { y: 0.335, arch: 0.04, half: 0.20, lift: 0.014, band: 0.021, spike: 0.026, spikes: [[0, 0.17], [0.07, 0.12], [0.14, 0.08]] });
+    }
+    return M;
+  }
+
+  // ===================================================================================================================
+  // SENTINEL  (robot). Boxy helmet, round lens eyes, mouth grille, ear pods.
+  //   boss: eight spider eyes, an antenna crown, bigger ear pods and side fins.
+  // ===================================================================================================================
+  function sentinelMask(boss) {
+    const M = K.newMesh();
+    const halfW = K.table([[-0.40, 0.15], [-0.34, 0.225], [-0.2, 0.295], [0.0, 0.318], [0.2, 0.318], [0.33, 0.295], [0.40, 0.22]]);
+    const depth = K.table([[-0.40, 0.07], [0.0, 0.13], [0.4, 0.095]]);
+    const surf = K.shell(M, 'body', {
+      y0: -0.40, y1: 0.40, halfW, z0: () => 0, depth, thick: 0.06, cols: 26, rows: 40, n: () => 3.4,
+      bumps: (x, y) => { const ax = Math.abs(x); return K.bump(ax, y, 0.0, -0.04, 0.05, 0.2, 0.03) + K.bump(ax, y, 0.22, -0.1, 0.08, 0.1, 0.02); },
+    });
+    const lens = (cx, cy, R) => {
+      const z = surf.zAt(cx, cy);
+      K.sphere(M, 'trim', 1, { xf: { t: [cx, cy, z + 0.002], r: [PI / 2, 0, 0], s: [R * 1.18, 0.028, R * 1.18] }, rings: 4, seg: 22, from: 0, to: PI / 2 });          // bezel
+      K.sphere(M, 'dark', 1, { xf: { t: [cx, cy, z + 0.014], r: [PI / 2, 0, 0], s: [R * 0.98, 0.032, R * 0.98] }, rings: 4, seg: 22, from: 0, to: PI / 2 });          // lens
+      K.sphere(M, 'glow', 1, { xf: { t: [cx, cy, z + 0.020], r: [PI / 2, 0, 0], s: [R * 0.62, 0.046, R * 0.62] }, rings: 5, seg: 18, from: 0, to: PI / 2 });          // glowing core
+    };
+    if (!boss) { lens(0.125, 0.07, 0.095); lens(-0.125, 0.07, 0.095); }
+    else {
+      lens(0.105, 0.045, 0.082); lens(-0.105, 0.045, 0.082);
+      lens(0.075, 0.215, 0.047); lens(-0.075, 0.215, 0.047);
+      lens(0.235, 0.15, 0.041); lens(-0.235, 0.15, 0.041);
+      lens(0.215, -0.065, 0.036); lens(-0.215, -0.065, 0.036);
+    }
+    // brow plate + forehead sensor
+    both(M, 'alt', [[0.015, 0.185], [0.25, 0.225], [0.285, 0.268], [0.24, 0.29], [0.015, 0.245]], surf, { lift: 0.012, maxEdge: 0.05 });
+    K.decal(M, 'accent', [[0, 0.325], [0.034, 0.288], [0, 0.251], [-0.034, 0.288]], surf, { lift: 0.014, maxEdge: 0.05 });
+    // nose plate and cheek panels
+    K.decal(M, 'alt', [[-0.045, 0.01], [0.045, 0.01], [0.033, -0.17], [-0.033, -0.17]], surf, { lift: 0.012, maxEdge: 0.05 });
+    both(M, 'alt', [[0.10, -0.03], [0.285, -0.015], [0.27, -0.2], [0.13, -0.205]], surf, { lift: 0.008, maxEdge: 0.06 });
+    for (const dy of [0, -0.045, -0.09]) both(M, 'dark', [[0.17, -0.06 + dy], [0.25, -0.052 + dy], [0.25, -0.066 + dy], [0.17, -0.074 + dy]], surf, { lift: 0.012, maxEdge: 0.05 });
+    // mouth grille
+    K.decal(M, 'dark', [[-0.17, -0.245], [0.17, -0.245], [0.15, -0.35], [-0.15, -0.35]], surf, { lift: 0.008, maxEdge: 0.06 });
+    for (let i = 0; i < 4; i++) { const y = -0.265 - i * 0.026; K.decal(M, 'trim', [[-0.14, y], [0.14, y], [0.14, y - 0.012], [-0.14, y - 0.012]], surf, { lift: 0.013, maxEdge: 0.07 }); }
+    // ear pods
+    const pod = boss ? 1.25 : 1;
+    K.sphere(M, 'trim', 1, { xf: { t: [0.335, 0.0, 0.0], r: [0, 0, PI / 2], s: [0.095 * pod, 0.05, 0.095 * pod] }, rings: 4, seg: 20, from: 0, to: PI / 2, mirror: true });
+    K.sphere(M, 'alt', 1, { xf: { t: [0.37, 0.0, 0.0], r: [0, 0, PI / 2], s: [0.07 * pod, 0.06, 0.07 * pod] }, rings: 4, seg: 20, from: 0, to: PI / 2, mirror: true });
+    K.sweep(M, 'trim', [[0.34, 0.07, -0.02], [0.35, 0.2, -0.02], [0.30, 0.31, -0.01]], { r: 0.014, ratio: 1, seg: 6, steps: 8, mirror: true }); // headset strut
+    if (!boss) {
+      K.sweep(M, 'trim', [[0.22, 0.37, -0.02], [0.26, 0.5, -0.04], [0.25, 0.6, -0.05]], { r: 0.010, seg: 6, steps: 8, capEnd: true });
+      K.sphere(M, 'glow', 0.026, { xf: { t: [0.25, 0.605, -0.05] }, rings: 5, seg: 10 });
+    } else {
+      // antenna crown
+      const ants = [[0, 0.40, 0.28], [0.08, 0.40, 0.24], [0.16, 0.38, 0.19], [0.23, 0.35, 0.13], [0.27, 0.30, 0.08]];
+      ants.forEach(([x, y, h], k) => {
+        const lean = x * 0.9;
+        K.sweep(M, 'trim', [[x, y, -0.01 - k * 0.003], [x + lean * 0.3, y + h * 0.5, -0.02], [x + lean * 0.7, y + h, -0.03]], { r: 0.011, seg: 6, steps: 8, capEnd: true, mirror: x > 0 });
+        K.sphere(M, k % 2 ? 'accent' : 'glow', 0.028 - k * 0.002, { xf: { t: [x + lean * 0.7, y + h + 0.01, -0.03] }, rings: 5, seg: 10, mirror: x > 0 });
+      });
+      K.sweep(M, 'trim', K.curve([[-0.27, 0.34, 0.0], [-0.14, 0.39, 0.0], [0, 0.41, 0.0], [0.14, 0.39, 0.0], [0.27, 0.34, 0.0]], 20), { r: 0.016, ratio: 1, seg: 8, steps: 20, capStart: true, capEnd: true });
+      // side fins
+      for (const [y, L, a] of [[0.12, 0.30, 0.18], [0.0, 0.24, -0.06]]) K.sweep(M, 'alt', [[0.34, y, -0.03], [0.34 + L * 0.5, y + a * 0.5, -0.05], [0.34 + L, y + a, -0.07]], { r: t => 0.05 * (1 - t) + 0.003, ratio: 0.25, up: [0, 1, 0], seg: 8, steps: 10, mirror: true });
+    }
+    return M;
+  }
+
+  // ===================================================================================================================
+  // ANGEL  (cherub / seraph). Serene closed eyes, gold halo.
+  //   boss: larger double halo with rays, wings behind the head, jewelled circlet.
+  // ===================================================================================================================
+  function angelMask(boss) {
+    const M = K.newMesh();
+    const lowerW = K.table([[-0.42, 0.075], [-0.36, 0.115], [-0.25, 0.18], [-0.1, 0.24], [0.05, 0.28], [0.2, 0.295]]);
+    const halfW = y => y <= 0.2 ? lowerW(y) : 0.295 * Math.sqrt(Math.max(1e-4, 1 - ((y - 0.2) / 0.226) ** 2)); // egg-shaped, round top
+    const depth = K.table([[-0.42, 0.05], [-0.2, 0.10], [0.0, 0.13], [0.2, 0.13], [0.425, 0.06]]);
+    const surf = K.shell(M, 'body', {
+      y0: -0.42, y1: 0.425, halfW, z0: () => 0, depth, thick: 0.05, cols: 26, rows: 44,
+      bumps: (x, y) => { const ax = Math.abs(x); return K.bump(ax, y, 0, -0.08, 0.035, 0.12, 0.035) + K.bump(ax, y, 0, -0.145, 0.045, 0.03, 0.02) + K.bump(ax, y, 0.15, 0.08, 0.06, 0.03, 0.012) + K.bump(ax, y, 0, -0.26, 0.075, 0.022, 0.014) + K.bump(ax, y, 0, -0.36, 0.06, 0.04, 0.015); },
+    });
+    // closed eyes + lashes, soft brows
+    for (const sgn of [1, -1]) {
+      const sp = pts => pts.map(([x, y]) => [x * sgn, y]);
+      K.stroke(M, 'dark', sp([[0.06, 0.092], [0.11, 0.066], [0.17, 0.06], [0.23, 0.083], [0.255, 0.105]]), t => 0.016 * Math.sin(Math.PI * (0.1 + 0.8 * t)) + 0.004, surf, { lift: 0.006, maxEdge: 0.05 });
+      K.stroke(M, 'dark', sp([[0.19, 0.062], [0.215, 0.045], [0.235, 0.04]]), 0.007, surf, { lift: 0.006, maxEdge: 0.05 });
+      K.stroke(M, 'alt', sp([[0.05, 0.15], [0.14, 0.18], [0.26, 0.15]]), t => 0.014 * Math.sin(Math.PI * (0.1 + 0.8 * t)) + 0.003, surf, { lift: 0.005, maxEdge: 0.06 });
+    }
+    // lips + nostrils
+    K.decal(M, 'accent', K.spline([[-0.07, -0.255], [-0.02, -0.235], [0, -0.242], [0.02, -0.235], [0.07, -0.255], [0.02, -0.285], [-0.02, -0.285]], 4), surf, { lift: 0.006, maxEdge: 0.04 });
+    both(M, 'dark', K.spline([[0.02, -0.158], [0.045, -0.152], [0.05, -0.165], [0.03, -0.17]], 3), surf, { lift: 0.006, maxEdge: 0.04 });
+    // cheek scratch
+    K.stroke(M, 'accent', [[0.17, -0.02], [0.2, -0.07], [0.19, -0.125]], t => 0.012 * (1 - t * 0.8) + 0.002, surf, { lift: 0.005, maxEdge: 0.06 });
+    // circlet + forehead jewel
+    crown(M, surf, 'trim', { y: 0.305, arch: 0.04, half: 0.22, lift: 0.01, band: boss ? 0.017 : 0.012, spike: 0.02, spikes: boss ? [[0, 0.11], [0.07, 0.075], [0.14, 0.05]] : [] });
+    K.decal(M, 'accent', [[0, 0.285], [0.03, 0.25], [0, 0.215], [-0.03, 0.25]], surf, { lift: 0.012, maxEdge: 0.04 });
+    // halo
+    const haloR = boss ? 0.42 : 0.31, cy = boss ? 0.50 : 0.46, cz = boss ? -0.17 : -0.14;
+    K.torus(M, 'trim', haloR, boss ? 0.017 : 0.013, { xf: { t: [0, cy, cz] }, steps: 40 });
+    const rays = boss ? 15 : 9;
+    for (let i = 0; i < rays; i++) {
+      const a = PI * (0.08 + 0.84 * i / (rays - 1)), c = Math.cos(a), s = Math.sin(a), big = i % 2 === 0;
+      K.sweep(M, 'trim', [[c * haloR * 0.98, cy + s * haloR * 0.98, cz], [c * haloR * (1.1 + (big ? 0.12 : 0.05)), cy + s * haloR * (1.1 + (big ? 0.12 : 0.05)), cz], [c * haloR * (1.2 + (big ? 0.2 : 0.09)), cy + s * haloR * (1.2 + (big ? 0.2 : 0.09)), cz]], { r: t => 0.014 * (1 - t) + 0.001, ratio: 0.6, seg: 6, steps: 5 });
+    }
+    if (boss) {
+      K.torus(M, 'accent', haloR * 0.82, 0.008, { xf: { t: [0, cy, cz] }, steps: 36 });
+      // wings behind the head: three tiers of feathers per side
+      const tiers = [{ n: 7, L: 0.78, w: 0.075, a0: 0.12, a1: 1.22, z: -0.20, slot: 'body' }, { n: 6, L: 0.52, w: 0.065, a0: 0.2, a1: 1.15, z: -0.185, slot: 'alt' }, { n: 5, L: 0.30, w: 0.055, a0: 0.25, a1: 1.1, z: -0.17, slot: 'body' }];
+      for (const tier of tiers) for (let i = 0; i < tier.n; i++) {
+        const a = tier.a0 + (tier.a1 - tier.a0) * i / (tier.n - 1), c = Math.cos(a), s = Math.sin(a), L = tier.L * (1 - 0.18 * i / (tier.n - 1));
+        const x0 = 0.30, y0 = 0.10 + 0.12 * (i / tier.n);
+        K.sweep(M, tier.slot, [[x0, y0, tier.z], [x0 + c * L * 0.5, y0 + s * L * 0.5 - 0.02, tier.z - 0.01], [x0 + c * L, y0 + s * L - 0.06 * (1 - s), tier.z - 0.02]],
+          { r: t => tier.w * Math.sin(Math.PI * Math.min(1, 0.18 + t * 0.82)) * (1 - 0.25 * t) + 0.002, ratio: 0.14, up: [-s, c, 0], seg: 8, steps: 10, mirror: true });
+        if (tier.slot === 'body' && tier.n === 7) K.sphere(M, 'trim', 0.017, { xf: { t: [x0 + c * L, y0 + s * L - 0.06 * (1 - s), tier.z - 0.02], s: [1, 1.6, 0.6] }, rings: 4, seg: 8, mirror: true });
+      }
+    }
+    return M;
+  }
+
+  // ===================================================================================================================
+  const builders = { fox: foxMask, oni: oniMask, sentinel: sentinelMask, angel: angelMask };
+  function build(species, boss) { return builders[species](!!boss); }
+  return { build, palette, PALETTES, builders };
+})();
+const MASK_SPECIES={fox:'fox',sentinel:'sentinel',oni:'oni',cherub:'angel',archdemon:'oni',seraph:'angel'};
+const MASK_TITLES={fox:['KITSUNE','LUNAR KITSUNE'],sentinel:['SENTINEL','ARACHNID SENTINEL'],oni:['ONI WARDEN','CROWNED ABYSS'],cherub:['IVORY WING','SOLAR SERAPH'],archdemon:['ONI WARDEN','CROWNED ABYSS'],seraph:['IVORY WING','SOLAR SERAPH']};
+const MASK_SIZE={fox:[.82,.92],sentinel:[.80,.88],oni:[.80,.80],angel:[.80,.76]}; // [normal, boss] scale per species
+const maskGeoCache={},maskPaletteLast={};
+function maskGeometries(species,boss){
+ const key=species+(boss?':boss':'');if(maskGeoCache[key])return maskGeoCache[key];
+ const M=MaskDesigns.build(species,boss),out={};
+ for(const slot in M.slots){const S=M.slots[slot],g=new T.BufferGeometry();
+  g.setAttribute('position',new T.Float32BufferAttribute(S.p,3));g.setAttribute('normal',new T.Float32BufferAttribute(S.n,3));g.setIndex(S.i);g.computeBoundingSphere();out[slot]=g;}
+ return maskGeoCache[key]=out;
+}
+// Slightly shift a palette colour's lightness so no two enemies of the same palette look identical.
+function maskTint(hex,amount){const c=new T.Color(hex),h={h:0,s:0,l:0};c.getHSL(h);return c.setHSL(h.h,h.s,clamp(h.l+(Math.random()-.5)*amount,.03,.97)).getHex();}
 function createEnemyMask(boss=false,previous='',energy=0xaf60ff){
- const choices=boss?['archdemon','seraph']:['fox','wolf','sentinel','oni','cherub'];
- const pool=choices.filter(k=>k!==previous),kind=pool[Math.floor(Math.random()*pool.length)],g=new T.Group();g.name='enemy-mask';
- const names={fox:'KITSUNE',wolf:'MOON WOLF',sentinel:'SENTINEL',oni:'ONI WARDEN',cherub:'IVORY WING',archdemon:'CROWNED ABYSS',seraph:'SOLAR SERAPH'};
- const ceramic=mat(kind==='archdemon'?0x352635:kind==='oni'?0x873944:kind==='sentinel'?0x708a9d:kind==='wolf'?0xbac7d1:0xe4ded0,.31,.48),dark=mat(0x101a25,.52,.54),trim=mat(boss?0xc3a164:0x83909c,.26,.78),signal=mat(energy,.3,.40);
- signal.emissive=linearColor(energy);signal.emissiveIntensity=.72;
- const darkHorn=mat(0x303344,.36,.67),accent=mat(kind==='fox'?0xa83946:energy,.37,.48);
- const variant=Math.random(),elongate=.94+Math.random()*.12;
- function plate(points,material,z=.04,depth=.018){const sh=new T.Shape();points.forEach(([x,y],i)=>i?sh.lineTo(x,y):sh.moveTo(x,y));sh.closePath();return mesh(g,new T.ExtrudeGeometry(sh,{depth,bevelEnabled:true,bevelSegments:1,steps:1,bevelSize:.009,bevelThickness:.008}),material,0,0,z);}
- const outline=[[-.22,.36],[0,.415],[.22,.36],[.315,.17],[.27,-.19],[.13,-.37],[0,-.42],[-.13,-.37],[-.27,-.19],[-.315,.17]];
- plate(outline,dark,-.042,.058);
- plate(outline.map(([x,y])=>[x*.95,y*.97]),ceramic,.014,.042);
- // A raised brow and beveled cheek plates read as a crafted mask instead of an organic face.
- for(const side of [-1,1]){
-  plate([[side*.022,.17],[side*.26,.21],[side*.24,.07],[side*.08,.065]],trim,.073,.008);
-  plate([[side*.055,.10],[side*.24,.135],[side*.22,.035],[side*.08,.005]],dark,.088,.007);
-  plate([[side*.084,.068],[side*.213,.092],[side*.195,.066],[side*.087,.048]],signal,.098,.004);
-  plate([[side*.25,-.04],[side*.22,-.22],[side*.095,-.30],[side*.12,-.12]],ceramic,.077,.017);
-  for(let i=0;i<3;i++){const vent=box(g,.060,.011,.008,dark,side*(.18-i*.014),-.10-i*.038,.108);vent.rotation.z=side*.28;}
+ const choices=boss?['archdemon','seraph','fox','sentinel']:['fox','sentinel','oni','cherub'];
+ const pool=choices.filter(k=>k!==previous),kind=pool[Math.floor(Math.random()*pool.length)],species=MASK_SPECIES[kind],g=new T.Group();g.name='enemy-mask';
+ // palette: random, but never the same one twice in a row for a species
+ const count=MaskDesigns.PALETTES[species].length;let pi=Math.floor(Math.random()*count);if(count>1&&pi===maskPaletteLast[species])pi=(pi+1+Math.floor(Math.random()*(count-1)))%count;maskPaletteLast[species]=pi;
+ const pal=MaskDesigns.palette(species,boss,pi),geos=maskGeometries(species,boss);
+ const signal=mat(energy,.3,.40);signal.emissive=linearColor(energy);signal.emissiveIntensity=.72;
+ for(const slot in geos){
+  let material;
+  if(slot==='glow')material=signal;
+  else{const p=pal.mat[slot];material=mat(maskTint(p.c,.05),p.r,p.m);if(slot==='trim'){material.emissive=linearColor(p.c);material.emissiveIntensity=.07;}}
+  const m=new T.Mesh(geos[slot],material);m.castShadow=true;g.add(m);
  }
- plate([[-.05,.04],[0,.15],[.05,.04],[.035,-.19],[0,-.24],[-.035,-.19]],trim,.074,.021);
- plate([[-.09,-.28],[0,-.31],[.09,-.28],[.05,-.35],[-.05,-.35]],dark,.072,.009);
- function horn(points,radius,material){const curve3=new T.CatmullRomCurve3(points.map(v=>V(...v))),frames=curve3.computeFrenetFrames(22,false),p=[],ix=[];
-  for(let i=0;i<=22;i++){const t=i/22,center=curve3.getPointAt(t),r=radius*Math.pow(1-t,.83)+.001;
-   for(let j=0;j<8;j++){const angle=j/8*Math.PI*2,v=center.clone().addScaledVector(frames.normals[i],Math.cos(angle)*r).addScaledVector(frames.binormals[i],Math.sin(angle)*r);p.push(v.x,v.y,v.z);if(i<22){const a=i*8+j,b=i*8+(j+1)%8;ix.push(a,b,a+8,b,b+8,a+8);}}}
-  const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(p,3));geo.setIndex(ix);geo.computeVertexNormals();mesh(g,geo,material);}
- function feather(side,x,y,length,angle){const f=plate([[-.033,0],[0,length],[.041,.06],[.016,-.03]],ceramic,.01,.022);f.position.x=x*side;f.position.y=y;f.rotation.z=angle*side;const vein=box(g,.009,length*.62,.008,trim,x*side,y+length*.3,.049);vein.rotation.z=angle*side;}
- if(kind==='fox'||kind==='wolf'){
-  for(const side of [-1,1]){const tall=kind==='fox'?.38:.25;plate([[side*.13,.32],[side*(.26+variant*.035),.38+tall],[side*.35,.21]],ceramic,.016,.034);plate([[side*.20,.33],[side*.26,.48+tall*.38],[side*.29,.30]],dark,.065,.012);
-   plate([[side*.245,.02],[side*.115,-.09],[side*.19,-.16],[side*.285,-.035]],accent,.11,.006);}
-  plate([[-.045,-.05],[0,-.015],[.045,-.05],[0,-.115]],dark,.126,.018);
- }else if(kind==='sentinel'){
-  armorPlate(g,.54,.075,.035,dark,0,.10,.095);box(g,.39,.011,.009,signal,0,.11,.119);
-  for(const side of [-1,1]){armorPlate(g,.085,.33,.075,trim,side*.30,.04,.02);box(g,.018,.18,.013,signal,side*.327,.055,.067);}
-  plate([[-.12,.29],[0,.365],[.12,.29],[.095,.23],[-.095,.23]],dark,.089,.014);
-  for(let i=0;i<3;i++)box(g,.014,.046,.012,signal,(i-1)*.038,.292,.112);
- }else if(kind==='oni'||kind==='archdemon'){
-  for(const side of [-1,1]){const great=kind==='archdemon';horn(great?[[side*.22,.27,.01],[side*.47,.48,0],[side*.55,.78,-.025],[side*.38,1.00,.025],[side*.32,1.12,.08]]:[[side*.22,.29,0],[side*.31,.49,.02],[side*.27,.66,.045]],great?.105:.068,darkHorn);
-   if(great){horn([[side*.30,.09,-.02],[side*.52,.21,-.04],[side*.64,.41,.04]],.073,trim);plate([[side*.10,.28],[side*.20,.49],[side*.26,.25]],accent,.10,.013);}
-   const fang=mesh(g,new T.ConeGeometry(.032,.14,6),trim,side*.105,-.24,.13);fang.rotation.z=Math.PI;}
- }else{
-  for(const side of [-1,1])for(let i=0;i<(boss?5:3);i++)feather(side,.26+i*.062,.12-i*.07,(boss?.59:.28)+i*.014,-.18-i*.12);
-  // A broken mechanical crown with an empty center, reserved in scale for the seraph boss.
-  const crown=mesh(g,new T.TorusGeometry(boss?.47:.24,boss?.018:.011,6,36,Math.PI*1.65),trim,0,boss?.65:.46,-.045);crown.rotation.z=.67;
-  for(const side of [-1,1])box(g,.018,.055,.018,signal,side*(boss?.31:.15),boss?.98:.63,-.035);
- }
- if(boss){plate([[-.13,.37],[0,.65],[.13,.37],[0,.43]],trim,.061,.022);plate([[-.035,.40],[0,.49],[.035,.40],[0,.36]],signal,.095,.007);
-  for(const side of [-1,1])for(let i=0;i<3;i++){const rivet=mesh(g,new T.OctahedronGeometry(.024,0),trim,side*(.28+i*.038),-.13-i*.085,.065);rivet.scale.y=1.8;}}
- else if(variant>.5)plate([[-.035,.29],[0,.35],[.035,.29],[0,.24]],accent,.10,.007);
- batchArmor(g);g.rotation.y=Math.PI;g.position.set(0,1.29,-.08);g.scale.set(boss?.85:.80,(boss?.85:.80)*elongate,boss?.85:.80);
- g.userData={kind,title:names[kind],boss,phase:Math.random()*Math.PI*2,signal};return g;
+ const size=MASK_SIZE[species][boss?1:0],elongate=.97+Math.random()*.06;
+ g.rotation.y=Math.PI;g.position.set(0,1.29,-.08);g.scale.set(size,size*elongate,size);
+ g.userData={kind,title:MASK_TITLES[kind][boss?1:0],boss,phase:Math.random()*Math.PI*2,signal,species,palette:pal.name};return g;
 }
 function updateEnemyMask(a,f){if(!a.mask||f.dead)return;const g=a.mask,t=game.time;
  g.position.y=1.29+Math.sin(t*1.8+g.userData.phase)*.022;g.rotation.set(Math.sin(t*1.1)*.023,Math.PI+Math.sin(t*.9)*.06,Math.sin(t*1.3)*.018);
@@ -2099,44 +2736,7 @@ document.addEventListener('pointerlockerror',()=>{requestingLock=false;$('cursor
 // Hand-drawn pictograms on one 32-unit grid. Bold masses, open counters, consistent detail weight.
 // One optical grid and stroke weight; no overlapping solid cutouts or background-colored masks.
 function rewardLogo(id){
- const P=d=>['path',{d}],C=(cx,cy,r)=>['circle',{cx,cy,r}],R=(x,y,width,height,rx=0)=>['rect',{x,y,width,height,rx}];
- const sword=[P('M15 32C23 25 33 14 41 4C37 15 27 27 18 35Z'),P('M11 29 23 39 M15 35 7 43 4 40 12 32 M8 37l3 3')];
- const shield=[P('M24 4 40 10v12c0 10-9 17-16 21C17 39 8 32 8 22V10Z')];
- const heart=[P('M24 40 8 24C-2 12 14 1 24 13C34 1 50 12 40 24Z')];
- const drop=[P('M24 4C21 11 11 21 11 29a13 13 0 0 0 26 0C37 21 27 11 24 4Z')];
- const icons={
-  damage:sword,
-  double:[P('M10 30 25 6l6-3-1 7-15 23Z M24 33 36 14l7-4-2 8-12 18Z'),P('M6 28 18 36 M11 34 6 42 M20 31 33 39 M25 37 21 44')],
-  movement:[P('M13 7h15l-2 18c3 3 7 5 12 6 3 1 5 3 5 6v4H10v-9l3-6Z'),P('M14 12h13 M19 17h7 M18 22h7 M10 37h32 M17 37v4 M3 18h5 M2 25h5')],
-  speed:[P('M5 13 16 24 5 35 M18 13 29 24 18 35 M31 13 42 24 31 35')],
-  bleed:[...drop,P('M17 29c0 4 3 7 7 7')],
-  fire:[P('M27 4c1 13-12 15-10 25-5-2-7-6-7-9C-2 40 20 49 33 39c10-8 6-19 0-24 1 8-4 11-4 11 3-9 3-15-2-22Z'),P('M24 29c-7 7-5 13 0 13s7-6 0-13Z')],
-  storm:[P('M28 3 8 27h14l-3 18 22-27H27Z')],
-  reduction:[...shield,P('M16 24h16')],
-  health:[...heart,P('M24 18v13 M17.5 24.5h13')],
-  critRate:[C(24,24,13),C(24,24,4),P('M24 3v7 M24 38v7 M3 24h7 M38 24h7')],
-  critDamage:[P('M24 4 29 18 43 24 29 30 24 44 19 30 5 24 19 18Z'),P('M6 6l5 5 M37 37l5 5')],
-  regen:[P('M19 9h10v10h10v10H29v10H19V29H9V19h10Z')],
-  revive:[P('M8 18A17 17 0 1 1 7 31 M5 8l3 10 10-3 M24 16v16 M16 24h16')],
-  harvest:[P('M24 7c-4 6-9 11-9 17a9 9 0 0 0 18 0c0-6-5-11-9-17Z'),P('M5 34 15 41h18l10-7 M16 35h16 M24 20v9 M20 25l4 4 4-4')],
-  execute:[P('M11 24a15 15 0 1 1 26 0l-4 5v12H15V29Z'),C(18,21,3),C(30,21,3),P('M22 29h4 M21 35v6 M27 35v6')],
-  oni:[P('M12 17 6 4l14 8h8L42 4l-6 13 3 9-7 13-8 5-8-5-7-13Z'),P('M15 23l6 3 M33 23l-6 3 M18 35l6-3 6 3 M20 36v3 M28 36v3')],
-  divine:[P('M13 7c0-6 22-6 22 0s-22 6-22 0Z M24 16v27 M18 29h12 M19 18 5 14c0 12 6 19 14 19 M29 18l14-4c0 12-6 19-14 19 M8 23l8 3 M40 23l-8 3')],
-  chaos:[R(7,7,34,34,6),C(16,16,1.8),C(32,16,1.8),C(24,24,1.8),C(16,32,1.8),C(32,32,1.8)],
-  autoGuard:[...shield,P('M24 14v12l7 4')],
-  riposte:[...sword,P('M6 24C3 13 12 5 22 8 M18 3l4 5-6 3')],
-  vampire:[P('M7 8h34l-9 16-3-9H19l-3 9Z M24 24c-3 4-7 8-7 12a7 7 0 0 0 14 0c0-4-4-8-7-12Z')],
-  exposed:[...drop,P('M20 16l8 7-9 6 9 6')],
-  reserve:[...shield,P('M15 20 24 25 33 20 M15 27l9 5 9-5')],
-  quickCoil:[P('M26 5 14 25h10l-3 18 15-23H25Z M7 13a19 19 0 0 0-2 18 M3 25l2 6 6-2 M41 35a19 19 0 0 0 2-18 M37 19l6-2 2 6')],
-  fortune:[R(11,11,26,26,4),C(19,19,1.5),C(29,29,1.5),P('M6 16A20 20 0 0 1 37 7 M31 4l6 3-4 5 M42 32A20 20 0 0 1 11 41 M17 44l-6-3 4-5')]
- };
- icons.riposte=[...shield,P('M16 25h17 M27 18l7 7-7 7')];
- icons.double=[P('M5 34C16 29 27 17 35 5C33 19 21 34 8 38Z M17 40C28 34 38 22 44 11C42 25 32 39 20 44Z')];
- icons.embers=[P('M24 4c2 10-9 13-8 22-5-1-6-5-6-7C1 31 10 43 24 43s23-14 12-25c1 7-4 9-5 8 3-10-2-17-7-22Z'),P('M24 29c-7 8-4 14 0 14s7-6 0-14Z')];
- icons.critDamage=[C(24,24,15),P('M24 2v7 M24 39v7 M2 24h7 M39 24h7 M24 14l3 7 7 3-7 3-3 7-3-7-7-3 7-3Z')];
- icons.riskedge=[...heart,P('M7 26h8l4-10 7 18 4-8h11')];
- icons.trinity=[P('M4 19 21 5 M12 29 34 8 M24 42 44 18'),P('M4 25 22 9 M13 35 35 13 M26 46 45 23')];
+ const icons={"autoGuard":[["path",{"d":"M24 4 40 10v12c0 10-9 17-16 21C17 39 8 32 8 22V10Z"}],["path",{"d":"M24 14v12l7 4"}]],"bleed":[["path",{"d":"M24 4C21 11 11 21 11 29a13 13 0 0 0 26 0C37 21 27 11 24 4Z"}],["path",{"d":"M17 29c0 4 3 7 7 7"}]],"chaos":[["rect",{"x":7,"y":7,"width":34,"height":34,"rx":6}],["circle",{"cx":16,"cy":16,"r":1.8}],["circle",{"cx":32,"cy":16,"r":1.8}],["circle",{"cx":24,"cy":24,"r":1.8}],["circle",{"cx":16,"cy":32,"r":1.8}],["circle",{"cx":32,"cy":32,"r":1.8}]],"critDamage":[["circle",{"cx":24,"cy":24,"r":15}],["path",{"d":"M24 2v7 M24 39v7 M2 24h7 M39 24h7 M24 14l3 7 7 3-7 3-3 7-3-7-7-3 7-3Z"}]],"critRate":[["circle",{"cx":24,"cy":24,"r":13}],["circle",{"cx":24,"cy":24,"r":4}],["path",{"d":"M24 3v7 M24 38v7 M3 24h7 M38 24h7"}]],"damage":[["path",{"d":"M15 32C23 25 33 14 41 4C37 15 27 27 18 35Z"}],["path",{"d":"M11 29 23 39 M15 35 7 43 4 40 12 32 M8 37l3 3"}]],"divine":[["path",{"d":"M13 7c0-6 22-6 22 0s-22 6-22 0Z M24 16v27 M18 29h12 M19 18 5 14c0 12 6 19 14 19 M29 18l14-4c0 12-6 19-14 19 M8 23l8 3 M40 23l-8 3"}]],"double":[["path",{"d":"M5 34C16 29 27 17 35 5C33 19 21 34 8 38Z M17 40C28 34 38 22 44 11C42 25 32 39 20 44Z"}]],"embers":[["path",{"d":"M24 4c2 10-9 13-8 22-5-1-6-5-6-7C1 31 10 43 24 43s23-14 12-25c1 7-4 9-5 8 3-10-2-17-7-22Z"}],["path",{"d":"M24 29c-7 8-4 14 0 14s7-6 0-14Z"}]],"execute":[["path",{"d":"M11 24a15 15 0 1 1 26 0l-4 5v12H15V29Z"}],["circle",{"cx":18,"cy":21,"r":3}],["circle",{"cx":30,"cy":21,"r":3}],["path",{"d":"M22 29h4 M21 35v6 M27 35v6"}]],"exposed":[["path",{"d":"M24 4C21 11 11 21 11 29a13 13 0 0 0 26 0C37 21 27 11 24 4Z"}],["path",{"d":"M20 16l8 7-9 6 9 6"}]],"fire":[["path",{"d":"M27 4c1 13-12 15-10 25-5-2-7-6-7-9C-2 40 20 49 33 39c10-8 6-19 0-24 1 8-4 11-4 11 3-9 3-15-2-22Z"}],["path",{"d":"M24 29c-7 7-5 13 0 13s7-6 0-13Z"}]],"fortune":[["rect",{"x":11,"y":11,"width":26,"height":26,"rx":4}],["circle",{"cx":19,"cy":19,"r":1.5}],["circle",{"cx":29,"cy":29,"r":1.5}],["path",{"d":"M6 16A20 20 0 0 1 37 7 M31 4l6 3-4 5 M42 32A20 20 0 0 1 11 41 M17 44l-6-3 4-5"}]],"harvest":[["path",{"d":"M24 7c-4 6-9 11-9 17a9 9 0 0 0 18 0c0-6-5-11-9-17Z"}],["path",{"d":"M5 34 15 41h18l10-7 M16 35h16 M24 20v9 M20 25l4 4 4-4"}]],"health":[["path",{"d":"M24 40 8 24C-2 12 14 1 24 13C34 1 50 12 40 24Z"}],["path",{"d":"M24 18v13 M17.5 24.5h13"}]],"movement":[["path",{"d":"M13 7h15l-2 18c3 3 7 5 12 6 3 1 5 3 5 6v4H10v-9l3-6Z"}],["path",{"d":"M14 12h13 M19 17h7 M18 22h7 M10 37h32 M17 37v4 M3 18h5 M2 25h5"}]],"oni":[["path",{"d":"M12 17 6 4l14 8h8L42 4l-6 13 3 9-7 13-8 5-8-5-7-13Z"}],["path",{"d":"M15 23l6 3 M33 23l-6 3 M18 35l6-3 6 3 M20 36v3 M28 36v3"}]],"quickCoil":[["path",{"d":"M26 5 14 25h10l-3 18 15-23H25Z M7 13a19 19 0 0 0-2 18 M3 25l2 6 6-2 M41 35a19 19 0 0 0 2-18 M37 19l6-2 2 6"}]],"reduction":[["path",{"d":"M24 4 40 10v12c0 10-9 17-16 21C17 39 8 32 8 22V10Z"}],["path",{"d":"M16 24h16"}]],"regen":[["path",{"d":"M19 9h10v10h10v10H29v10H19V29H9V19h10Z"}]],"reserve":[["path",{"d":"M24 4 40 10v12c0 10-9 17-16 21C17 39 8 32 8 22V10Z"}],["path",{"d":"M15 20 24 25 33 20 M15 27l9 5 9-5"}]],"revive":[["path",{"d":"M8 18A17 17 0 1 1 7 31 M5 8l3 10 10-3 M24 16v16 M16 24h16"}]],"riposte":[["path",{"d":"M24 4 40 10v12c0 10-9 17-16 21C17 39 8 32 8 22V10Z"}],["path",{"d":"M16 25h17 M27 18l7 7-7 7"}]],"riskedge":[["path",{"d":"M24 40 8 24C-2 12 14 1 24 13C34 1 50 12 40 24Z"}],["path",{"d":"M7 26h8l4-10 7 18 4-8h11"}]],"speed":[["path",{"d":"M5 13 16 24 5 35 M18 13 29 24 18 35 M31 13 42 24 31 35"}]],"storm":[["path",{"d":"M28 3 8 27h14l-3 18 22-27H27Z"}]],"trinity":[["path",{"d":"M4 19 21 5 M12 29 34 8 M24 42 44 18"}],["path",{"d":"M4 25 22 9 M13 35 35 13 M26 46 45 23"}]],"vampire":[["path",{"d":"M7 8h34l-9 16-3-9H19l-3 9Z M24 24c-3 4-7 8-7 12a7 7 0 0 0 14 0c0-4-4-8-7-12Z"}]]};
  const reward=DuelRules.REWARDS[id],key=icons[id]?id:reward?.icon||reward?.equip||'damage';
  const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
  for(const [k,v] of Object.entries({viewBox:'0 0 48 48',fill:'none',stroke:'currentColor','stroke-width':'2.3','stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true',focusable:'false'}))svg.setAttribute(k,v);
@@ -2237,6 +2837,9 @@ $('rewardSheet').addEventListener('pointermove',e=>{
 });
 
 let selectedReward=null,rewardDialogSerial=0;
+const CHIP_ART_HTML='<svg class="chip-glow" viewBox="0 0 323 527" aria-hidden="true" focusable="false"><path d="M0 0H10V52L38 78V188L14 202V372L30 386V451L69 497H195V527H55L0 462Z" fill="currentColor"/></svg><svg class="chip-art" viewBox="0 0 323 527" aria-hidden="true" focusable="false"><defs><clipPath id="chipClip"><path d="M0 0H110L122 22H260L323 82V505L311 527H55L0 462Z"/></clipPath><linearGradient id="chipWhite" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".6" stop-color="#f5f3f0"/><stop offset="1" stop-color="#dbd7d2"/></linearGradient><linearGradient id="chipShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".42"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".38"/></linearGradient><linearGradient id="chipHouse" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#26221e"/><stop offset="1" stop-color="#050403"/></linearGradient><linearGradient id="chipGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8c25e"/><stop offset=".45" stop-color="#b98a22"/><stop offset="1" stop-color="#6e4c0c"/></linearGradient></defs><g clip-path="url(#chipClip)"><path d="M0 0H110L122 22H260L323 82V505L311 527H55L0 462Z" fill="url(#chipWhite)"/><path class="chip-band" d="M0 0H10V52L38 78V188L14 202V372L30 386V451L69 497H195V527H55L0 462Z"/><path d="M0 0H10V52L38 78V188L14 202V372L30 386V451L69 497H195V527H55L0 462Z" fill="url(#chipShade)"/><path d="M5 8V56L33 82V184L9 198V376L25 390V455L64 501H190" fill="none" stroke="#000" stroke-opacity=".28" stroke-width="1.2"/><path d="M10 52L38 78V188L14 202V372L30 386V451L69 497H195" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="1.2"/></g><path d="M22 12H100L112 34H255L311 87V160L305 166V250L311 256V420H196V484H76L44 446V392L27 376V214L51 200V76L22 50Z" fill="none" stroke="#2b2f38" stroke-opacity=".38"/><path class="chip-tri" d="M27 19H53L40 36Z"/><path class="chip-neon" d="M1 1V462L55 526H194"/><path class="chip-rim" d="M0 0H110L122 22H260L323 82V505L311 527H55L0 462Z"/><path d="M313 160H323V256H313Z" fill="#2a2418" fill-opacity=".7"/><path d="M316 165H322V251H316Z" fill="url(#chipGold)" stroke="#3a2704" stroke-width="1" shape-rendering="crispEdges"/><path d="M220 432H323V511L311 527H208V444Z" fill="url(#chipHouse)" stroke="#fff" stroke-opacity=".14"/><g fill="url(#chipGold)" stroke="#e8c25e" stroke-opacity=".4" stroke-width=".8"><rect x="227" y="447" width="21" height="65" rx="2.5"/><rect x="258.5" y="447" width="21" height="65" rx="2.5"/><rect x="290" y="447" width="21" height="65" rx="2.5"/></g><g fill="#fff" fill-opacity=".35"><rect x="229" y="449" width="3.5" height="61" rx="1.5"/><rect x="260.5" y="449" width="3.5" height="61" rx="1.5"/><rect x="292" y="449" width="3.5" height="61" rx="1.5"/></g></svg>';
+function makeChipArt(){const t=document.createElement('template');t.innerHTML=CHIP_ART_HTML;return t.content;}
+function fillCardEffect(el,text){el.replaceChildren();for(const part of String(text).split(/([+−-]?\d+(?:\.\d+)?%?)/)){if(!part)continue;if(/^[+−-]?\d/.test(part)){const b=document.createElement('b');b.className='num';b.textContent=part;el.append(b);}else el.append(part);}}
 function openRewards(){
  if(!game.pendingRewards.length||!(mode==='victory'||(mode==='play'&&game.rewardContext==='start')))return;clearRewardInput();mode='reward_enter';rewardTransition.age=0;game.running=false;releaseCursor();$('cursorHint').hidden=true;document.body.classList.add('combat-ended');const sheet=$('rewardSheet');sheet.inert=true;sheet.dataset.stage='enter';sheet.setAttribute('aria-busy','true');sheet.classList.remove('hover-ready');
  rewardDialogSerial++;selectedReward=null;
@@ -2245,7 +2848,8 @@ function openRewards(){
  const rarity=$('rewardRarity');rarity.replaceChildren();for(const [label,color] of (game.rewardContext==='boss'?[['RARE · 70%','#c3a0ff'],['LEGENDARY · 30%','#f4d38c']]:[['COMMON · 60%','#8bc7ff'],['RARE · 35%','#c3a0ff'],['LEGENDARY · 5%','#f4d38c']])){const item=document.createElement('span');item.textContent=label;item.style.color=color;rarity.append(item);}
  const cards=$('rewardCards');cards.replaceChildren();
  for(const id of game.pendingRewards){const r=DuelRules.REWARDS[id],card=document.createElement('button');card.type='button';card.className='reward-card '+r.tier;card.setAttribute('aria-label',r.tier+' · '+r.name+' · '+r.description);card.setAttribute('aria-pressed','false');card.disabled=true;
-  const effect=document.createElement('strong');effect.textContent=r.name;const tag=document.createElement('span'),hint=document.createElement('span');tag.className='build-card-tag';tag.textContent=DuelRules.ARCHETYPES[r.tags[0]];hint.className='build-card-effect';hint.textContent=r.detail;card.append(tag,effect,hint);if(game.rewards[id]){const rank=document.createElement('span');rank.className='build-card-rank';rank.textContent='RANK '+(game.rewards[id]+1)+(r.cap?' / '+r.cap:'');card.append(rank);}
+  const effect=document.createElement('strong');effect.textContent=r.name;const tag=document.createElement('span'),hint=document.createElement('span');tag.className='build-card-tag';tag.textContent=DuelRules.ARCHETYPES[r.tags[0]];hint.className='build-card-effect';fillCardEffect(hint,r.detail);card.append(tag,effect,hint);if(game.rewards[id]){const rank=document.createElement('span');rank.className='build-card-rank';rank.textContent='RANK '+(game.rewards[id]+1)+(r.cap?' / '+r.cap:'');card.append(rank);}
+  card.prepend(makeChipArt());
   bindRewardAction(card,()=>{
    if(mode!=='reward')return;
    selectedReward=id;confirm.disabled=false;
