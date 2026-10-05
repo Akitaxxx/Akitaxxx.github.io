@@ -458,30 +458,99 @@ body.touch-mode .act-btn.slash{background:radial-gradient(circle at 35% 30%,#cc6
 #rewardSheet #rewardCards .reward-card:disabled{filter:none}
 @media(prefers-reduced-motion:reduce){#rewardSheet #rewardCards .reward-card,#rewardSheet #rewardCards .reward-card[aria-pressed=true]{transition:none;transform:none!important}}
 
-/* ===== Reward screen: no panel, just title + cards + pick + confirm ===== */
-#rewardSheet{background:#090e16;backdrop-filter:none;padding:12px;box-sizing:border-box}
-#rewardSheet .reward-inner{width:min(1000px,100%);margin:auto;padding:0!important;box-sizing:border-box;background:none!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;display:flex;flex-direction:column;align-items:center}
-#rewardSheet .reward-header{text-align:center;margin:0 0 18px;width:100%}
+/* ===== Reward screen: 14.html layout (cards left, pick + CONFIRM on the right) with the chip cards ===== */
+#rewardSheet{background:#090e16;backdrop-filter:none;padding:18px 22px;box-sizing:border-box;overflow-x:hidden;overflow-y:auto}
+#rewardSheet .reward-inner{width:min(1000px,100%);margin:auto;padding:0!important;box-sizing:border-box;background:none!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;display:block}
+#rewardSheet .reward-header{text-align:center;margin:0 0 24px;width:100%}
 #rewardSheet .reward-header h2{font-size:30px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin:0}
 #rewardSheet .reward-header>:not(h2),#rewardSheet .rarity-key,#rewardSheet .reward-build-identity{display:none!important}
-#rewardSheet .reward-deck{display:flex;flex-direction:column;align-items:center;gap:18px;width:100%}
-#rewardSheet .reward-deck .reward-cards{--card-width:min(240px,calc((100vh - 230px)/1.63),calc((100vw - 24px)/3 - 14px));grid-template-columns:repeat(3,minmax(0,var(--card-width)));justify-content:center;gap:18px;max-width:none;width:100%}
-@supports(height:100dvh){#rewardSheet .reward-deck .reward-cards{--card-width:min(240px,calc((100dvh - 230px)/1.63),calc((100vw - 24px)/3 - 14px))}}
-#rewardSheet .reward-review{border:0!important;background:none!important;padding:0!important;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;max-width:520px}
-#rewardSheet .reward-review h3{font-size:18px;font-weight:550;color:#fff;margin:0}
-#rewardSheet .reward-review p{color:#c5d1e0;margin:0}
-#rewardSheet .reward-review .primary{min-height:44px;min-width:180px;margin-top:6px}
+#rewardSheet .reward-deck{display:grid;grid-template-columns:minmax(0,1fr) 185px;align-items:center;gap:30px;width:100%}
+#rewardSheet .reward-deck .reward-cards{--gap:26px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);width:100%;max-width:min(740px,calc(3*(100vh - 190px)/1.63 + 2*var(--gap)));justify-self:center;padding-top:10px}
+@supports(height:100dvh){#rewardSheet .reward-deck .reward-cards{max-width:min(740px,calc(3*(100dvh - 190px)/1.63 + 2*var(--gap)))}}
+#rewardSheet .reward-review{border:0!important;border-left:1px solid #d3e4f133!important;background:none!important;padding:0 0 0 24px!important;text-align:left;display:block;max-width:none}
+#rewardSheet .reward-review .eyebrow{display:none}
+#rewardSheet .reward-summary{min-height:130px}
+#rewardSheet .reward-review h3{font-size:19px;font-weight:500;line-height:1.3;color:#f0f5f9;margin:0 0 10px}
+#rewardSheet .reward-review p{font-size:11px;line-height:1.65;color:#c4d2df;margin:0}
+#rewardSheet .reward-review .primary{width:100%;min-width:0;min-height:0;margin:0;padding:16px 10px;font-size:10px;letter-spacing:2px}
+#rewardSheet .reward-review .primary span{margin-left:7px}
 @media(max-width:600px) and (orientation:portrait){
- #rewardSheet{padding:10px}#rewardSheet .reward-header h2{font-size:22px}
- #rewardSheet .reward-deck .reward-cards{--card-width:calc((100vw - 20px - 20px)/3);gap:10px}
+ #rewardSheet{padding:14px 12px}
+ #rewardSheet .reward-header{margin-bottom:16px}#rewardSheet .reward-header h2{font-size:22px}
+ #rewardSheet .reward-deck{grid-template-columns:1fr;gap:22px}
+ #rewardSheet .reward-deck .reward-cards{--gap:14px;max-width:100%}
+ #rewardSheet .reward-review{border-left:0!important;border-top:1px solid #d3e4f133!important;padding:16px 0 0!important;display:grid;grid-template-columns:minmax(0,1fr) 120px;gap:6px 18px;align-items:center}
+ #rewardSheet .reward-summary{min-height:70px;grid-column:1}
+ #rewardSheet .reward-review h3{font-size:16px;margin:0 0 5px}
+ #rewardSheet .reward-review p{font-size:10px}
+ #rewardSheet .reward-review .primary{grid-column:2;grid-row:1;padding:14px 6px}
 }
 @media(max-height:520px) and (orientation:landscape){
- #rewardSheet{padding:8px}#rewardSheet .reward-header{margin-bottom:6px}#rewardSheet .reward-header h2{font-size:18px}
- #rewardSheet .reward-deck{gap:8px}
- #rewardSheet .reward-deck .reward-cards{--card-width:min(240px,calc((100vh - 150px)/1.63),calc((100vw - 24px)/3 - 12px));gap:12px}
- #rewardSheet .reward-review{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 16px;text-align:left;align-items:center;max-width:none}#rewardSheet .reward-review .reward-summary{grid-column:1}#rewardSheet .reward-review .primary{grid-column:2;grid-row:1;margin:0}#rewardSheet .reward-review .reward-summary{grid-row:1}#rewardSheet .reward-review .eyebrow{display:none}#rewardSheet .reward-review h3{font-size:14px}#rewardSheet .reward-review p{font-size:10px}#rewardSheet .reward-review .primary{min-height:36px}
+ #rewardSheet{padding:8px 22px}
+ #rewardSheet .reward-header{margin-bottom:8px}#rewardSheet .reward-header h2{font-size:18px}
+ #rewardSheet .reward-deck{grid-template-columns:minmax(0,1fr) 170px;gap:20px}
+ #rewardSheet .reward-deck .reward-cards{--gap:18px;max-width:calc(3*(100vh - 84px)/1.63 + 2*var(--gap));padding-top:8px}
+ #rewardSheet .reward-review{padding-left:16px!important}
+ #rewardSheet .reward-summary{min-height:90px}
+ #rewardSheet .reward-review h3{font-size:15px}#rewardSheet .reward-review p{font-size:10px}
+ #rewardSheet .reward-review .primary{padding:12px 8px}
 }
-@supports(height:100dvh){@media(max-height:520px) and (orientation:landscape){#rewardSheet .reward-deck .reward-cards{--card-width:min(240px,calc((100dvh - 150px)/1.63),calc((100vw - 24px)/3 - 12px))}}}
+@supports(height:100dvh){@media(max-height:520px) and (orientation:landscape){#rewardSheet .reward-deck .reward-cards{max-width:calc(3*(100dvh - 84px)/1.63 + 2*var(--gap))}}}
+
+/* ===== Death screen: same flat look as the reward screen ===== */
+#deathSheet{background:#090e16;backdrop-filter:none;padding:16px;box-sizing:border-box;overflow-x:hidden;overflow-y:auto;place-items:start center}
+#deathSheet .sheet-panel,#deathSheet .chronicle-panel{margin:auto;width:min(540px,100%)!important;max-height:none;overflow:visible;padding:0!important;gap:22px;background:none!important;border:0!important;border-radius:0;box-shadow:none!important;backdrop-filter:none!important;text-align:center}
+#deathSheet header{text-align:center}
+#deathSheet .eyebrow{display:block;font-size:10px;letter-spacing:.3em;color:#8fa3b8;margin:0}
+#deathSheet h2{font-size:30px!important;font-weight:600;letter-spacing:.14em!important;text-transform:uppercase;color:#fff!important;margin:8px 0 0!important}
+#deathSheet .run-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+#deathSheet .run-stat{background:linear-gradient(160deg,#1c2838,#111a26);border:1px solid #85c2ff40;border-top:3px solid #85c2ff;border-radius:6px 6px 4px 4px;padding:16px 10px;text-align:center}
+#deathSheet .run-stat b{font-size:24px;font-weight:500;color:#fff;letter-spacing:.04em}
+#deathSheet .run-stat span{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#a9bbd0;margin-top:8px}
+#deathSheet .run-unlocks>div{background:#f4d18412;border:1px solid #f4d18455;border-left:3px solid #f4d184;color:#f4d184;border-radius:4px;text-align:left}
+#deathSheet .build-details{border-top:1px solid #d3e4f133;padding-top:12px;text-align:left}
+#deathSheet .build-details summary{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#c4d2df}
+#deathSheet .next-run{display:flex;justify-content:flex-end;border:0;padding:0}
+#deathSheet .summary-actions{gap:14px}
+#deathSheet .summary-actions button{min-height:48px;min-width:0;font-size:10px;letter-spacing:2px}
+@media(max-width:600px) and (orientation:portrait){#deathSheet{padding:14px 12px}#deathSheet h2{font-size:24px!important}#deathSheet .run-stats{gap:8px}#deathSheet .run-stat{padding:12px 6px}#deathSheet .run-stat b{font-size:20px}}
+@media(max-height:600px){#deathSheet .chronicle-panel{gap:12px}#deathSheet h2{font-size:26px!important}}
+@media(max-height:500px) and (min-width:600px){
+ #deathSheet .chronicle-panel{width:min(820px,100%)!important;gap:10px 28px}
+ #deathSheet header{text-align:left}#deathSheet h2{font-size:24px!important}
+ #deathSheet .run-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ #deathSheet .run-stat{padding:9px 8px}#deathSheet .run-stat b{font-size:19px}
+}
+
+/* ===== Parry timing cue: bigger container so the markers stay inside on phones ===== */
+#hud #parryLabel,#hud #parryLabel[data-phase]{width:min(210px,60vw)!important;height:64px!important}
+#hud #parryLabel .cue-timing{height:32px}
+#hud #parryLabel .cue-caption{top:42px;font-size:13px;white-space:nowrap}
+#hud #parryLabel .cue-target{width:14px;height:14px;left:calc(50% - 7px);top:8px}
+#hud #parryLabel .cue-marker{height:24px;top:4px}
+#hud #parryLabel .cue-marker.left{left:calc(50% - var(--cue-gap)*1.5 - 2px)}
+#hud #parryLabel .cue-marker.right{left:calc(50% + var(--cue-gap)*1.5 - 1px)}
+#hud #parryTimer{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* ===== Selected chip: the rarity colors on the card glow (no extra border glow) ===== */
+#rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-glow{opacity:.6;filter:blur(2.6cqw)}
+#rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-rim{stroke:#fff;stroke-opacity:.55;stroke-width:1.2}
+#rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-band,#rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-tri{fill:var(--c-hi);filter:drop-shadow(0 0 1.2cqw var(--c)) drop-shadow(0 0 3cqw var(--c))}
+#rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-neon{stroke:#fff;stroke-width:2;filter:drop-shadow(0 0 1cqw var(--c-hi)) drop-shadow(0 0 2.6cqw var(--c))}
+@media(prefers-reduced-motion:no-preference){
+ #rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-band,#rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-tri,#rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-neon{animation:chipColorGlow 1.8s ease-in-out infinite}
+ @keyframes chipColorGlow{50%{opacity:.82}}
+}
+/* ===== Neon pass: brighter selected glow ===== */
+#rewardSheet #rewardCards .reward-card{--n:#27b6ff}
+#rewardSheet #rewardCards .reward-card.rare{--n:#c05cff}
+#rewardSheet #rewardCards .reward-card.legendary{--n:#ffc61a}
+#rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-glow{color:var(--n);opacity:.9;filter:blur(3cqw)}
+#rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-band,#rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-tri{fill:var(--n);filter:brightness(1.25) saturate(1.4) drop-shadow(0 0 .8cqw var(--n)) drop-shadow(0 0 2cqw var(--n)) drop-shadow(0 0 4.5cqw var(--n)) drop-shadow(0 0 8cqw var(--n))}
+#rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-neon{stroke:#fff;stroke-width:2.4;filter:drop-shadow(0 0 .6cqw #fff) drop-shadow(0 0 1.6cqw var(--n)) drop-shadow(0 0 3.5cqw var(--n)) drop-shadow(0 0 7cqw var(--n))}
+@media(prefers-reduced-motion:no-preference){
+ #rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-band,#rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-tri,#rewardSheet #rewardCards .reward-card[aria-pressed=true] .chip-neon{animation:chipNeon 1.6s ease-in-out infinite}
+ @keyframes chipNeon{50%{opacity:1;transform:none;filter:brightness(1.5) saturate(1.5) drop-shadow(0 0 1cqw var(--n)) drop-shadow(0 0 3cqw var(--n)) drop-shadow(0 0 6cqw var(--n)) drop-shadow(0 0 10cqw var(--n))}}
+}
 /* lighter title weight elsewhere (HUD buff list, build log) */
 .buff-row b,.build-entry b,.buff-panel header{font-weight:500}
 </style>
@@ -669,7 +738,7 @@ class Duel{
  buildSpeed(){return (this.time<this.tempoUntil?this.tempoStacks*this.rewards.speed*.08:0)+(this.time<this.bloodrushUntil?.20:0);}
  configureRun({unlocks=[],modifier='standard'}={}){this.allowedUnlocks=new Set(unlocks);this.modifier=['standard','fragileGuard','drought'].includes(modifier)?modifier:'standard';}
  staticTarget(){return this.rewards.quickCoil?3:5;}
- canOffer(id,context='boss'){const r=REWARDS[id];if(!r)return false;return(id!=='revive'||this.reviveCharges<2)&&(!r.unlock||this.allowedUnlocks.has(r.unlock))&&(this.modifier!=='drought'||id!=='regen')&&(!r.weapon||r.weapon===this.weapon)&&(!r.equip||(context==='boss'&&this.weapon==='basic'))&&(!r.cap||this.rewards[id]<r.cap)&&(!r.requiresAny||r.requiresAny.some(k=>this.rewards[k]))&&(!r.requiresLeech||this.weapon==='oni'||this.rewards.vampire>0);}
+ canOffer(id,context='boss'){const r=REWARDS[id];if(!r)return false;return(id!=='revive'||this.reviveCharges<2)&&(!r.unlock||this.allowedUnlocks.has(r.unlock))&&(this.modifier!=='drought'||id!=='regen')&&(!r.weapon||r.weapon===this.weapon)&&(!r.equip||(context==='boss'&&r.equip!==this.weapon))&&(!r.cap||r.equip||this.rewards[id]<r.cap)&&(!r.requiresAny||r.requiresAny.some(k=>this.rewards[k]))&&(!r.requiresLeech||this.weapon==='oni'||this.rewards.vampire>0);}
  rewardWeight(id,cards=[]){const r=REWARDS[id],ownedTags=new Set(Object.keys(REWARDS).filter(k=>this.rewards[k]).flatMap(k=>REWARDS[k].tags)),offeredTags=new Set(cards.flatMap(k=>REWARDS[k].tags));let weight=1;
   weight+=Math.min(1.35,r.tags.filter(t=>ownedTags.has(t)&&t!=='core').length*.65);
   if(r.equip&&this.weapon==='basic')weight*=2.2;
@@ -748,6 +817,11 @@ class Duel{
    cards.push(id);pool.splice(pool.indexOf(id),1);
   }
 
+  // Guarantee: every boss reward offers a katana until the player has picked one.
+  if(context==='boss'&&this.weapon==='basic'&&cards.length&&!cards.some(k=>REWARDS[k].equip)){
+   const katanas=Object.keys(REWARDS).filter(k=>REWARDS[k].equip&&this.canOffer(k,context));
+   if(katanas.length)cards[cards.length-1]=katanas[Math.floor(this.rng()*katanas.length)];
+  }
   this.pendingRewards=cards;this.lastOffer=[...cards];this.emit('rewardOffer',{cards:[...cards],context});
  }
  chooseReward(id){if(!this.pendingRewards.includes(id)||this.player.dead||!this.canOffer(id,this.rewardContext))return false;this.pendingRewards=[];this.rewards[id]++;
@@ -2642,7 +2716,7 @@ function updateShots(dt){const alive=new Set(game.shots.map(s=>s.id));
  if(s.dir<0&&near&&s.z>.4){const phase=game.parryPhase(s);if(phase.eta<best){best=phase.eta;incoming=s;}}
  }
  cue.visible=!!incoming&&mode==='play';$('parryLabel').hidden=!cue.visible;if(incoming){const {eta,phase}=game.parryPhase(incoming),col=phase==='red'?0xff343e:phase==='orange'?0xff922e:0xb88e26;
- const label=$('parryLabel'),contact=V(game.player.x*3.2+.25,1.30,1.68).project(camera);label.style.setProperty('--contact-x',clamp((contact.x*.5+.5)*innerWidth,90,innerWidth-90)+'px');label.style.setProperty('--contact-y',clamp((.5-contact.y*.5)*innerHeight,70,innerHeight-85)+'px');label.style.color=phase==='red'?'#ff8291':phase==='orange'?'#ffbd71':'#dfbf67';label.dataset.phase=phase;label.style.setProperty('--cue-gap',(phase==='red'?8*clamp(eta/DuelRules.PARRY):8+43*clamp((eta-DuelRules.PARRY)/.78))+'px');label.style.setProperty('--cue-progress',(100*(1-clamp(eta/1.18)))+'%');$('cueCaption').textContent=phase==='red'?'PARRY NOW':phase==='orange'?'GET READY':'INCOMING';canvas.dataset.parryPhase=phase;
+ const label=$('parryLabel'),contact=V(game.player.x*3.2+.25,1.30,1.68).project(camera);label.style.setProperty('--contact-x',clamp((contact.x*.5+.5)*innerWidth,110,innerWidth-110)+'px');label.style.setProperty('--contact-y',clamp((.5-contact.y*.5)*innerHeight,70,innerHeight-85)+'px');label.style.color=phase==='red'?'#ff8291':phase==='orange'?'#ffbd71':'#dfbf67';label.dataset.phase=phase;label.style.setProperty('--cue-gap',(phase==='red'?8*clamp(eta/DuelRules.PARRY):8+43*clamp((eta-DuelRules.PARRY)/.78))+'px');label.style.setProperty('--cue-progress',(100*(1-clamp(eta/1.18)))+'%');$('cueCaption').textContent=phase==='red'?'PARRY NOW':phase==='orange'?'GET READY':'INCOMING';canvas.dataset.parryPhase=phase;
  if(phase==='red'&&!incoming.cued){incoming.cued=true;cueShot=incoming.id;}
  }else{canvas.dataset.parryPhase='none';$('parryLabel').dataset.phase='none';}
  for(let i=fxBursts.length-1;i>=0;i--){const f=fxBursts[i];f.t+=dt;f.mesh.scale.setScalar(.18+f.t*1.25);f.mesh.children.forEach(m=>m.material.opacity=.72*(1-f.t/.4));if(f.t>.4){scene.remove(f.mesh);disposeObject(f.mesh);fxBursts.splice(i,1);}}
@@ -2747,7 +2821,7 @@ function rewardLogo(id){
 
 function buildIdentity(){const scores={};for(const [id,n] of Object.entries(game.rewards))if(n)for(const tag of DuelRules.REWARDS[id].tags)if(tag!=='core')scores[tag]=(scores[tag]||0)+1;return Object.keys(scores).sort((a,b)=>scores[b]-scores[a]).slice(0,2).map(k=>DuelRules.ARCHETYPES[k]).join(' + ')||'Basic';}
 function rewardSynergy(id){const r=DuelRules.REWARDS[id],matches=Object.keys(game.rewards).filter(k=>k!==id&&game.rewards[k]&&DuelRules.REWARDS[k].tags.some(t=>r.tags.includes(t)&&t!=='core'));return matches.length?'With '+matches.slice(0,2).map(k=>DuelRules.REWARDS[k].name).join(' · '):'';}
-function rewardValue(id){const n=game.rewards[id],values={trinity:'3 CUTS',arcCrown:game.crownHits+'/6',deathmark:game.deathmarkHits+'/3',reversal:game.time<game.reversalUntil?'READY':'PARRY',voidbrand:'BLEED + BURN',weaponOni:'EQUIPPED',weaponDivine:'EQUIPPED',weaponChaos:'EQUIPPED',critRate:'+'+n*10+'% crit',critDamage:'+'+n*20+'% crit dmg',regen:n*2+' HP/s',damage:'+'+n*15+'% damage',speed:'up to +'+n*24+'%',reduction:Math.round((1-game.damageTakenRate())*100)+'% less',health:'+'+n*35+' HP',movement:'+'+n*10+'% move',revive:game.reviveCharges+' lives',oni:n*2+'% leech',divine:'+'+n*4+' HP/parry',chaos:Math.round(game.chaosChance()*100)+'% high roll',double:'2 cuts',autoGuard:game.time>=game.autoGuardAt?'READY':Math.ceil(game.autoGuardAt-game.time)+'s',bleed:'5 stacks max',embers:'3 stacks max',static:game.staticCharge+'/'+game.staticTarget()+' charge',reserve:game.guardReserve+' stored',scarTissue:game.guardReserve+' stored',quickCoil:'3 hits · 35%',lucidEdge:game.time<game.lucidUntil?'CRIT READY':'PERFECT HIT',riposte:game.time<game.riposteUntil?'READY':'PARRY',riskedge:'BELOW 40%',vampire:n*2+'% leech',bloodrush:game.time<game.bloodrushUntil?'ACTIVE':'LIFE STEAL',fortune:'+'+game.luckStacks*10+'% luck'};return values[id]||'ACTIVE';}
+function rewardValue(id){const n=game.rewards[id],values={trinity:'3 CUTS',arcCrown:game.crownHits+'/6',deathmark:game.deathmarkHits+'/3',reversal:game.time<game.reversalUntil?'READY':'PARRY',voidbrand:'BLEED + BURN',weaponOni:game.weapon==='oni'?'EQUIPPED':'SWAPPED',weaponDivine:game.weapon==='divine'?'EQUIPPED':'SWAPPED',weaponChaos:game.weapon==='chaos'?'EQUIPPED':'SWAPPED',critRate:'+'+n*10+'% crit',critDamage:'+'+n*20+'% crit dmg',regen:n*2+' HP/s',damage:'+'+n*15+'% damage',speed:'up to +'+n*24+'%',reduction:Math.round((1-game.damageTakenRate())*100)+'% less',health:'+'+n*35+' HP',movement:'+'+n*10+'% move',revive:game.reviveCharges+' lives',oni:n*2+'% leech',divine:'+'+n*4+' HP/parry',chaos:Math.round(game.chaosChance()*100)+'% high roll',double:'2 cuts',autoGuard:game.time>=game.autoGuardAt?'READY':Math.ceil(game.autoGuardAt-game.time)+'s',bleed:'5 stacks max',embers:'3 stacks max',static:game.staticCharge+'/'+game.staticTarget()+' charge',reserve:game.guardReserve+' stored',scarTissue:game.guardReserve+' stored',quickCoil:'3 hits · 35%',lucidEdge:game.time<game.lucidUntil?'CRIT READY':'PERFECT HIT',riposte:game.time<game.riposteUntil?'READY':'PARRY',riskedge:'BELOW 40%',vampire:n*2+'% leech',bloodrush:game.time<game.bloodrushUntil?'ACTIVE':'LIFE STEAL',fortune:'+'+game.luckStacks*10+'% luck'};return values[id]||'ACTIVE';}
 function updateRewardHud(){
  $('critStats').textContent=Math.round(game.critChance()*100)+'% CRIT · +'+Math.round(game.critBonus()*100)+'% DMG';
  const key=JSON.stringify(game.rewards)+'/'+game.reviveCharges+'/'+game.weapon+'/'+Math.ceil(Math.max(0,game.autoGuardAt-game.time))+'/'+game.guardReserve+'/'+(game.time<game.lucidUntil)+'/'+game.staticCharge+'/'+game.luckStacks+'/'+game.crownHits+'/'+game.deathmarkHits+'/'+(game.time<game.reversalUntil)+'/'+(game.time<game.riposteUntil)+'/'+(game.time<game.bloodrushUntil);if(key===rewardHudKey)return;rewardHudKey=key;
